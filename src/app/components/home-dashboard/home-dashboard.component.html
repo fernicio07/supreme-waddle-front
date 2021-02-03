@@ -1,0 +1,131 @@
+<div *ngIf="listaAnios.length > 0">
+    <h1>Año Presente</h1>
+    <p><strong>{{ dateFrom }} a {{ dateTo }}</strong></p>
+</div>
+<div class="row pb-5" *ngIf="totalesAnio">    
+    <div class="col-md-3">
+        <div class="card p-3 mt-4">
+            <h3 class="mb-4 text-center">Estudiantes por grado</h3>
+            <div class="row border-bottom" *ngFor="let result of results">
+                <div class="col-md-6">
+                    <p class="my-2">Grado: <strong>{{result.grade_docs[0].name}}</strong></p>
+                </div>
+                <div class="col-md-6">
+                    <p class="my-2">Total Estudiantes: <strong>{{ result.total }}</strong></p>
+                </div>
+            </div>
+            <p class="my-2">Total Estudiantes: {{totalStudents}}</p>
+            <p class="my-2">Total Familias Activas: {{totalFamiliasActivas}}</p>
+            <p class="my-2">Total Familias: {{totalFamilias}}</p>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-cascade cascading-admin-card mt-4">
+                    <div class="admin-up">
+                        <mdb-icon far icon="money-bill-alt" class="primary-color"></mdb-icon>
+                        <div class="data">
+                            <p class="text-uppercase">Instrucción</p>
+                            <h4 class="mb-0"><strong>${{ totalesAnio[0].totalMensualidadesAnio | number:'1.2-2'}}</strong></h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" [style.width]="porcentajeMensualidad+'%'" [attr.aria-valuenow]="porcentajeMensualidad" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p>Porcentaje promedio de suma totales ({{porcentajeMensualidad}}%)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-cascade cascading-admin-card mt-4">
+                    <div class="admin-up">
+                        <mdb-icon fas icon="chart-pie" class="warning-color"></mdb-icon>
+                        <div class="data">
+                            <p class="text-uppercase">Donativo</p>
+                            <h4 class="mb-0"><strong>${{ totalesAnio[0].totalDonativoAnio | number:'1.2-2'}}</strong></h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" [style.width]="porcentajeDonativo+'%'" [attr.aria-valuenow]="porcentajeDonativo" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        <p>Porcentaje promedio de suma totales ({{porcentajeDonativo}}%)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-cascade cascading-admin-card mt-4">
+                    <div class="admin-up">
+                        <mdb-icon fas icon="chart-line" class="light-blue lighten-1"></mdb-icon>
+                        <div class="data">
+                            <p class="text-uppercase">Matrícula</p>
+                            <h4 class="mb-0"><strong>${{ totalesAnio[0].totalMatriculaAnio | number:'1.2-2'}}</strong></h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" [style.width]="porcentajeMatricula+'%'" [attr.aria-valuenow]="porcentajeMatricula" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        <p>Porcentaje promedio de suma totales ({{porcentajeMatricula}}%)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card card-cascade cascading-admin-card mt-4">
+                    <div class="admin-up">
+                        <mdb-icon fas icon="hryvnia" class="red accent-2"></mdb-icon>
+                        <div class="data">
+                            <p class="text-uppercase">Graduación</p>
+                            <h4 class="mb-0"><strong>${{ totalesAnio[0].totalGraduationFeeAnio | number:'1.2-2'}}</strong></h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" [style.width]="porcentajeGraduacion+'%'" [attr.aria-valuenow]="porcentajeGraduacion" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        <p>Porcentaje promedio de suma totales ({{porcentajeGraduacion}}%)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-cascade cascading-admin-card mt-4">
+                    <div class="admin-up">
+                        <mdb-icon fas icon="money-bill-wave-alt" class="secondary-color"></mdb-icon>
+                        <div class="data">
+                            <p>CUOTAS ESPECIALES</p>
+                            <h4 class="mb-0"><strong>${{ totalesAnio[0].totalCuotasEspecialesAnio | number:'1.2-2' }}</strong></h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" [style.width]="porcentajeCuotasEspeciales+'%'" [attr.aria-valuenow]="porcentajeCuotasEspeciales" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        <p>Porcentaje promedio de suma totales ({{porcentajeCuotasEspeciales}}%)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-cascade cascading-admin-card mt-4">
+                    <div class="admin-up">
+                        <mdb-icon far icon="chart-bar" class="default-color"></mdb-icon>
+                        <div class="data">
+                            <p>SUMA TOTALES</p>
+                            <h4 class="mb-0"><strong>${{ totalesAnio[0].sumaTodosTotales | number:'1.2-2'}}</strong></h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        <p>Porcentaje promedio de suma totales (100%)</p>
+                    </div>
+                </div>
+                <a href="javascript:void()" class="text-underline"><u>Generar reporte ingresos totales</u></a>
+            </div>
+        </div>
+    </div>
+</div>

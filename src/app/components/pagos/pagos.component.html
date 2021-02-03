@@ -1,0 +1,612 @@
+<form [formGroup]="formPagos">
+    <div class="row mb-4">
+        <!-- Detalles familia -->
+        <div class="col-md-4 mt-4">
+            <mdb-card class="narrower card card-cascade">
+                <div class="view view-cascade gradient-card-header">
+                    <h2 class="h2-responsive mb-0">
+                        Pagos
+                    </h2>
+                </div>
+                <mdb-card-body class="card-body">
+                    <div class="row">                        
+                        <div class="col-md-6">
+                            <mat-form-field class="w-100">
+                                <input type="text"
+                                       placeholder="Codigo familia"
+                                       aria-label="Number"
+                                       matInput
+                                       [formControl]="f.codigoFamilia"
+                                       [matAutocomplete]="autoCodigoFamilia">
+                                <mat-autocomplete #autoCodigoFamilia="matAutocomplete">
+                                  <mat-option *ngFor="let option of filteredOptionsCodigoFamilia | async" [value]="option.codigoFamilia">
+                                    {{option.codigoFamilia}}
+                                  </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="w-100">
+                                <input type="text"
+                                       placeholder="Apellido estudiante"
+                                       aria-label="String"
+                                       matInput
+                                       [formControl]="f.lastNameEstudiantes"
+                                       [matAutocomplete]="autoLastName">
+                                <mat-autocomplete #autoLastName="matAutocomplete">
+                                  <mat-option *ngFor="let option of filteredOptionsLastName | async" [value]="option.lastName">
+                                    {{option.lastName}}
+                                  </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                        <!-- <div class="col-md-6">
+                            <span>Codigo familia</span>
+                            <div class="md-form mt-1">
+                                <select id="codigoFamilia" class="browser-default custom-select" name="codigoFamilia"
+                                    formControlName="codigoFamiliaSelect" mdbValidate [validateSuccess]="false"
+                                    (ngModelChange)="getInfoFamily($event)">
+                                    <option [value]="codeFamily.codigoFamilia" *ngFor="let codeFamily of codesFamily">
+                                        {{codeFamily.codigoFamilia}}</option>
+                                </select>
+                                <mdb-error *ngIf="submitted && f.codigoFamiliaSelect.errors && f.codigoFamiliaSelect.invalid">Requerido</mdb-error>
+                            </div>
+                        </div> -->
+                    </div>                    
+                    <div *ngIf="mostrarPagosFamily && estadoCuentasFamily">
+                        <h2 *ngIf="codeFamilyOfStudent">Codigo Familia: <strong>{{codeFamilyOfStudent}}</strong></h2>
+                        <h3 class="mb-2">Información Padres</h3>
+                        <div>Padre: <strong>{{ familyInfo.dad.name | uppercase }} {{ familyInfo.dad.lastName | uppercase }}</strong></div>
+                        <div>Madre: <strong>{{ familyInfo.mom.name | uppercase }} {{ familyInfo.mom.lastName | uppercase }}</strong></div>
+                        <h3 class="my-2">Informacion Estudiantes</h3>
+                        <div *ngFor="let student of familyInfo.students; let i = index">
+                            <div [ngClass]="{'border-bottom': i > 0}" class="mb-2">
+                                <strong class="m-0 d-block">{{student.name | uppercase}} {{student.lastName | uppercase}} </strong>                                
+                                <strong class="d-block">Grado: {{student.grade.name}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+        <!--Pagos a realizar -->
+        <div class="col-md-8 mt-4 h-100" *ngIf="mostrarPagosFamily && estadoCuentasFamily">
+            <mdb-card class="narrower card card-cascade text-center">
+                <div class="view view-cascade gradient-card-header w-50 mx-auto">
+                    <h2 class="h2-responsive mb-0">
+                        Balance por recibir
+                    </h2>
+                </div>
+                <mdb-card-body class="card-body">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <h2 class="border-bottom">Pagos a realizar</h2>
+                            <div class="row">
+                                <div class="col-4">
+                                    <small class="grey-text">Instrucción</small>
+                                    <h2>$ {{valorBalanceInstruccion | number:'1.2-2'}}</h2>
+                                </div>
+                                <div class="col-4">
+                                    <small class="grey-text">Donativo</small>
+                                    <h2>${{ valorBalanceDonativo | number:'1.2-2' }}</h2>
+                                </div>                            
+                                <div class="col-4">
+                                    <small class="grey-text">Cuido</small>
+                                    <h2>${{ valorBalanceCuido | number:'1.2-2' }}</h2>
+                                </div>
+                                <div class="col-4">
+                                    <small class="grey-text">Matricula</small>
+                                    <h2>${{ valorBalanceMatricula | number:'1.2-2' }}</h2>
+                                </div>
+                                <div class="col-4">
+                                    <small class="grey-text">Seguro</small>
+                                    <h2>${{ valorBalanceSeguro | number:'1.2-2'}}</h2>
+                                </div>
+                                <div class="col-4">
+                                    <small class="grey-text">Seguridad</small>
+                                    <h2>${{ valorBalanceSecurity | number:'1.2-2' }}</h2>
+                                </div>
+                                <div class="col-4">
+                                    <small class="grey-text">Tecnología</small>
+                                    <h2>${{ valorBalanceTecnology | number:'1.2-2' }}</h2>
+                                </div>
+                                <div class="col-4">
+                                    <small class="grey-text">Mantenimiento</small>
+                                    <h2>${{ valorBalanceMaintenance | number:'1.2-2' }}</h2>
+                                </div>
+                                <div class="col-4">
+                                    <small class="grey-text">Anuario</small>
+                                    <h2>${{ valorBalanceYearbook | number:'1.2-2' }}</h2>
+                                </div>
+                                <div class="col-4">
+                                    <small class="grey-text">Graduación</small>
+                                    <h2>${{ valorBalanceGraduation| number:'1.2-2' }}</h2>
+                                </div>
+                                <div class="col-4">
+                                    <small class="grey-text">Libros Digitales</small>
+                                    <h2>${{ valorBalanceLibrosDigitales | number:'1.2-2' }}</h2>
+                                </div>
+                                <div class="col-4">
+                                    <small class="grey-text">Recargo</small>
+                                    <h2>${{ valorBalanceRecargo | number:'1.2-2' }}</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-6">
+                            <h2 class="border-bottom">Pagos Realizados</h2>
+                            <div class="row">
+                                <div class="col-6">
+                                    <small class="grey-text">Instrucción</small>
+                                    <h2>${{ balancePagos.mensualidadInstruccionPagado | number:'1.2-2'}}</h2>
+                                </div>
+                                <div class="col-6">
+                                    <small class="grey-text">Donativo</small>
+                                    <h2>${{ balancePagos.montoDonationFeePagado | number:'1.2-2' }}</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <small class="grey-text">Cuido</small>
+                                    <h2>${{ balancePagos.montoTotalCuidoPagado | number:'1.2-2' }}</h2>
+                                </div>
+                                <div class="col-6">
+                                    <small class="grey-text">Matricula</small>
+                                    <h2>${{ balancePagos.montoTotalMatriculaStudentsPagado | number:'1.2-2' }}</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <small class="grey-text">Seguro</small>
+                                    <h2>${{ balancePagos.montoTotalSeguroStudentsPagado | number:'1.2-2'}}</h2>
+                                </div>
+                                <div class="col-6">
+                                    <small class="grey-text">Seguridad</small>
+                                    <h2>${{ balancePagos.montoSecurityFeePagado | number:'1.2-2' }}</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <small class="grey-text">Tecnología</small>
+                                    <h2>${{ balancePagos.montoTechnologyFeePagado | number:'1.2-2' }}</h2>
+                                </div>
+                                <div class="col-6">
+                                    <small class="grey-text">Mantenimiento</small>
+                                    <h2>${{ balancePagos.montoMaintenanceFeePagado | number:'1.2-2' }}</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <small class="grey-text">Anuario</small>
+                                    <h2>${{ balancePagos.montoYearbookPagado | number:'1.2-2' }}</h2>
+                                </div>
+                                <div class="col-6">
+                                    <small class="grey-text">Graduación</small>
+                                    <h2 >${{ balancePagos.montoGraduationFeePagado | number:'1.2-2' }}</h2>
+                                    
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+    </div>
+    <div [hidden]="ocultarTablaCuentas" class="pt-3">
+        <mdb-card class="narrower card card-cascade">
+            <div class="view view-cascade gradient-card-header w-25 mx-auto">
+                <h2 class="h2-responsive mb-0">
+                    Cuenta
+                </h2>
+            </div>
+            <mdb-card-body class="card-body">
+                <mat-tab-group>
+                    <mat-tab label="Realizar pago">
+                        <div class="p-3" *ngIf="mostrarPagosFamily && estadoCuentasFamily">
+                            <!-- <p *ngIf="totalInstruccionDebePagar" class="text-danger"><strong>* Debes pagar Instrucción un valor de: <strong class="font-weight-bold">${{totalInstruccionDebePagar | number:'1.2-2'}}</strong> </strong></p>
+                            <p class="text-danger"><strong>* Debes pagar de donativo un valor de: <strong class="font-weight-bold">${{totalDonativoDebePagar | number:'1.2-2'}}</strong></strong></p> -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="md-form">
+                                        <mat-form-field appearance="fill" class="w-100">
+                                            <mat-label>Fecha realizo pago</mat-label>
+                                            <input #inputDatePicker matInput [matDatepicker]="picker1" formControlName="fechaCreoPago" placeholder="DD/MM/YYYY"
+                                                (dateInput)="addEvent($event)">
+                                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker1></mat-datepicker>
+                                        </mat-form-field>
+                                        <mdb-error *ngIf="submitted && f.fechaCreoPago.errors && f.fechaCreoPago.invalid">Requerido</mdb-error>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="content-mes">
+                                        <mat-label>Mes</mat-label>
+                                        <mat-select [formControl]="f.selectorMes" multiple>
+                                            <mat-option *ngFor="let mes of listaMeses" [value]="mes">{{mes.name}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mdb-error *ngIf="submitted && f.selectorMes.errors && f.selectorMes.invalid">Requerido</mdb-error>
+                                </div>
+                                <div class="col">
+                                    <span>Tipo de Pago</span>
+                                    <div class="md-form mt-1">
+                                        <select id="tipoDePago" class="browser-default custom-select" name="tipoDePago" formControlName="tipoDePago" 
+                                            mdbValidate [validateSuccess]="false" [validateError]="false" (ngModelChange)="getTipoDePago($event)">
+                                            <option [value]="tipoDePago.code" *ngFor="let tipoDePago of tiposDePago"> {{tipoDePago.name}}</option>
+                                        </select>
+                                        <mdb-error *ngIf="submitted && f.tipoDePago.errors && f.tipoDePago.invalid">Requerido </mdb-error>
+                                    </div>
+                                </div>
+                                <div class="col" *ngIf="mostrarCamposDeCheque">
+                                    <div class="md-form">
+                                        <input id="numeroDeCheque" type="text" class="form-control" formControlName="numeroDeCheque" mdbInput
+                                            mdbValidate [validateSuccess]="false">
+                                        <label for="numeroDeCheque">Numero de cheque</label>
+                                    </div>
+                                </div>
+                                <div class="col" *ngIf="mostrarCamposDeCheque">
+                                    <div class="md-form">
+                                        <input id="banco" type="text" class="form-control" formControlName="banco" mdbInput
+                                            mdbValidate [validateSuccess]="false">
+                                        <label for="banco">Banco</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="md-form">
+                                        <input id="totalPago" type="text" class="form-control" formControlName="totalPago" mdbInput
+                                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                                            <mdb-error *ngIf="submitted && verificarTotal">Verificar total</mdb-error>
+                                        <label for="totalPago">Total</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="md-form">
+                                        <input id="mensualidadGrados" type="text" class="form-control" formControlName="mensualidadGrados"
+                                            mdbInput mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                                        <label for="mensualidadGrados">Instrucción</label>
+                                    </div>
+                                </div>
+                                                       
+                            </div>
+                            <div class="row">
+                                 <!-- *ngIf="estadoCuentasFamily.donationFee.length > 0" -->
+                                 <div class="col">
+                                    <div class="md-form">
+                                        <input id="donativo" type="text" class="form-control" formControlName="donativo" mdbInput
+                                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                                        <label for="donativo">Donativo</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="md-form">
+                                        <input id="cuido" type="text" class="form-control" formControlName="cuido" mdbInput
+                                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                                        <label for="cuido">Cuido</label>
+                                    </div>
+                                </div>
+                                <!-- *ngIf="estadoCuentasFamily.graduationFee.length > 0" -->
+                                <div class="col" >
+                                    <div class="md-form">
+                                        <input id="graduation" type="text" class="form-control" formControlName="graduation" mdbInput
+                                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                                        <label for="graduation">Graduación</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="md-form">
+                                        <input id="admission" type="text" class="form-control" formControlName="admission" mdbInput
+                                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                                        <label for="admission">Matricula</label>
+                                    </div>
+                                </div>       
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="md-form">
+                                        <input id="insurance" type="text" class="form-control" formControlName="insurance" mdbInput
+                                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                                        <label for="insurance">Seguro</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="md-form">
+                                        <input id="yearBook" type="text" class="form-control" formControlName="yearBook" mdbInput
+                                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                                        <label for="yearBook">Anuario</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="md-form">
+                                        <input id="maintenanceFee" type="text" class="form-control" formControlName="maintenanceFee"
+                                            mdbInput mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true" >
+                                        <label for="maintenanceFee">Mantenimiento</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="md-form">
+                                        <input id="securityFee" type="text" class="form-control" formControlName="securityFee" mdbInput
+                                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                                        <label for="securityFee">Seguridad</label>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="md-form">
+                                        <input id="technologyFee" type="text" class="form-control" formControlName="technologyFee" mdbInput
+                                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                                        <label for="technologyFee">Tecnología</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="md-form">
+                                        <input id="librosDigitales" type="text" class="form-control" formControlName="librosDigitales" mdbInput
+                                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                                        <label for="librosDigitales">Libros Digitales</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="md-form">
+                                        <input id="recargo" type="text" class="form-control" formControlName="recargo" mdbInput
+                                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                                        <label for="recargo">Recargo</label>
+                                    </div>
+                                </div>
+                                <!-- <div class="col">
+                                    <span>Mes pendiente Mensualidad</span>
+                                    <div class="md-form mt-1">
+                                        <select id="mesPendientePagar" class="browser-default custom-select" name="mesPendientePagar"
+                                            formControlName="mesPendientePagar" mdbValidate  [validateSuccess]="false" [validateError]="false">
+                                            <option [value]="mes.key" *ngFor="let mes of estadoCuentasFamily.mesesPendientesPagarMensualidad"> {{mes.name}}</option>
+                                        </select>
+                                        <mdb-error *ngIf="submitted && f.mesPendientePagar.errors && f.mesPendientePagar.invalid">Requerido </mdb-error>
+                                    </div>
+                                </div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="payFamily()">Pagar</button>
+                                </div>
+                            </div>
+                        </div>            
+                    </mat-tab>
+                    <mat-tab label="Pagos Realizados">
+                        <div class="table-responsive">
+                            <table mdbTable #tableEl="mdbTable" striped="true">
+                                <caption></caption>
+                                <thead class="bc-blue white-text">
+                                    <tr class="text-center">
+                                        <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                                    </tr>
+                                </thead>
+                                <tbody #row *ngIf="estadoCuentasFamily">
+                                    <tr mdbTableCol *ngFor="let el of pagosFamily; let i = index" class="text-center">
+                                        <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong *ngIf="el.numeroDeCheque">{{el.numeroDeCheque}}</strong>
+                                            <strong *ngIf="!el.numeroDeCheque">{{el.tipoPago | setTipoPago}}</strong>
+                                        </th>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                                            scope="row">
+                                            <strong>{{el.fechaCreoPago | setFecha}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                                            scope="row">
+                                            <strong *ngIf="el.codigoDeposito">{{el.codigoDeposito}}</strong>
+                                            <strong *ngIf="!el.codigoDeposito">-</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex" class="border-r-2 border-l-2">
+                                            <strong>{{el.totalPago | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <!-- <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.totalPago | number:'1.2-2'}}</strong>
+                                        </td> -->
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.montoTotalMensualidadGradoStudentsPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.montoDonationFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.montoTotalCuidoPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.montoGraduationFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.montoTotalMatriculaStudentsPagado | number:'1.2-2'}}</strong>
+                                        </td>                                   
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.montoTotalSeguroStudentsPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.montoSecurityFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.montoTechnologyFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.montoMaintenanceFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.montoYearbookPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.montoLibrosDigitalesPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.montoRecargoPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <!-- <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <a href="javascript:void(0)" mdbTooltip="Editar" class="text-action mr-2" (click)="modalEditarPago(el)">
+                                                <mdb-icon far icon="edit"></mdb-icon>
+                                            </a>
+                                            <a href="javascript:void(0)" mdbTooltip="Eliminar" class="text-action">
+                                                <mdb-icon far icon="trash-alt"></mdb-icon>
+                                            </a>
+                                        </td> -->
+                                        
+                                        <!-- <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.totalRecibir | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.totalRecibido | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                            <strong>${{el.balance | number:'1.2-2'}}</strong>
+                                        </td> -->
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <strong>Totales: </strong>
+                                        </td>
+                                        <td colspan="1" class="border-r-2 border-l-2 border-t-2">
+                                            <strong>${{totalRecibir | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center border-t-2">
+                                            <strong>${{ estadoCuentasFamily.totalAnualMensualidadGradoStudents | number:'1.2-2' }}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center border-t-2">
+                                            <strong>${{ estadoCuentasFamily.donativoAnual | number:'1.2-2' }}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center border-t-2">
+                                            <strong>${{ estadoCuentasFamily.cuido | number:'1.2-2' }}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center border-t-2">
+                                            <strong>${{ estadoCuentasFamily.totalGraduationFee | number:'1.2-2' }}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center border-t-2">
+                                            <strong>${{ estadoCuentasFamily.totalMatriculaStudents | number:'1.2-2' }}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center border-t-2">
+                                            <strong>${{ estadoCuentasFamily.totalSeguroStudents | number:'1.2-2' }}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center border-t-2">
+                                            <strong>${{ estadoCuentasFamily.security | number:'1.2-2' }}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center border-t-2">
+                                            <strong>${{ estadoCuentasFamily.technology | number:'1.2-2' }}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center border-t-2">
+                                            <strong>${{ estadoCuentasFamily.maintenance | number:'1.2-2' }}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center border-t-2">
+                                            <strong>${{ estadoCuentasFamily.yearbook | number:'1.2-2' }}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center border-t-2">
+                                            <strong>${{ estadoCuentasFamily.montoLibrosDigitales | number:'1.2-2' }}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center border-t-2">
+                                            <strong>${{ estadoCuentasFamily.recargo | number:'1.2-2' }}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <strong>Total recibido: </strong>
+                                        </td>
+                                        <td colspan="1" class="border-r-2 border-l-2">
+                                            <strong>${{totalRecibido | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <!-- <td colspan="1" class="text-center">
+                                            <strong>${{recibidoTotalPago | number:'1.2-2'}}</strong>
+                                        </td> -->
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{recibidoMensualidadInstruccionPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{recibidoMontoDonationFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{recibidoMontoTotalCuidoPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{recibidoMontoGraduationFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{recibidoMontoTotalMatriculaStudentsPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{recibidoMontoTotalSeguroStudentsPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{recibidoMontoSecurityFeePagado | number:'1.2-2'}}</strong>
+                                        </td>                                        
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{recibidoMontoTechnologyFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{recibidoMontoMaintenanceFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{recibidoMontoYearbookPagado | number:'1.2-2'}}</strong>
+                                        </td>                                        
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{recibidoMontoLibrosDigitalesPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{recibidoMontoRecargoPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr >
+                                        <td colspan="3">
+                                            <strong>Balance: </strong>
+                                        </td>
+                                        <td colspan="1" class="border-r-2 border-l-2">
+                                            <strong>${{balance | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <!-- <td colspan="1" class="text-center">
+                                            <strong>${{recibidoTotalPago | number:'1.2-2'}}</strong>
+                                        </td> -->
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{ (estadoCuentasFamily.totalAnualMensualidadGradoStudents - recibidoMensualidadInstruccionPagado) | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{ (estadoCuentasFamily.donativoAnual - recibidoMontoDonationFeePagado) | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{ (estadoCuentasFamily.cuido - recibidoMontoTotalCuidoPagado) | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{ (estadoCuentasFamily.totalGraduationFee - recibidoMontoGraduationFeePagado) | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{ (estadoCuentasFamily.totalMatriculaStudents - recibidoMontoTotalMatriculaStudentsPagado) | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{ (estadoCuentasFamily.totalSeguroStudents - recibidoMontoTotalSeguroStudentsPagado) | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{ (estadoCuentasFamily.security - recibidoMontoSecurityFeePagado) | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{ (estadoCuentasFamily.technology - recibidoMontoTechnologyFeePagado) | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{ (estadoCuentasFamily.maintenance - recibidoMontoMaintenanceFeePagado) | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{ (estadoCuentasFamily.yearbook - recibidoMontoYearbookPagado) | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{ (estadoCuentasFamily.montoLibrosDigitales - recibidoMontoLibrosDigitalesPagado) | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td colspan="1" class="text-center">
+                                            <strong>${{ (estadoCuentasFamily.recargo - recibidoMontoRecargoPagado) | number:'1.2-2'}}</strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="grey lighten-5 w-100">
+                                    <tr>
+                                        <td colspan="18">
+                                            <mdb-table-pagination [tableEl]="tableEl" paginationAlign=""
+                                                [searchDataSource]="pagosFamily"></mdb-table-pagination>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </mdb-card-body>
+        </mdb-card>
+    </div>
+</form>

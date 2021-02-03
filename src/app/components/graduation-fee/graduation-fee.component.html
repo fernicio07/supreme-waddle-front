@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="mb-3">
+    <button type="button" mdbBtn color="primary" class="ml-0 dashed-button mw-100" mdbWavesEffect (click)="agregarGraduacion()">Adjudicar Cuota Graduación</button>
+  </div>
+    <div class="row">
+        <div class="col-md-4">
+            <mdb-card>
+                <mdb-card-body>
+                    <h3 class="text-center">Cuota Graduación</h3>
+                    <table mdbTable #tableGraduationFee="mdbTable" striped="true">
+                        <caption></caption>
+                        <thead>
+                          <tr class="text-center">
+                            <th *ngFor="let head of headElementsGraduationFee" scope="col">{{ head }}</th>
+                          </tr>
+                        </thead>
+                        <tbody #row>
+                          <tr mdbTableCol *ngFor="let el of elementsGraduation; let i = index" class="text-center">
+                            <td>{{el.name }}</td>
+                            <td>{{el.cost}}</td>
+                            <td>
+                              <a href="javascript:void(0)" mdbTooltip="Editar" class="text-action mr-2" (click)="editarGraduationFee(el)">
+                                <mdb-icon far icon="edit"></mdb-icon>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+    </div>
+</div>

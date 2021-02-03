@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row">
+        <!-- <div class="col-md-4">
+            <mdb-card>
+              <div class="p-3 text-center border-bottom">
+                <h1>Agregar grado</h1>
+              </div>
+                <mdb-card-body>
+                    <form [formGroup]="formPriceGrade">
+                        <div class="md-form">
+                            <input id="nameGrade" type="text" class="form-control" formControlName="nameGrade"
+                                mdbInput mdbValidate [validateSuccess]="false">
+                            <label for="nameGrade">Nombre grado</label>
+                            <mdb-error *ngIf="submitted && f.nameGrade.errors && f.nameGrade.invalid">Requerido</mdb-error>
+                        </div>
+                        <div class="md-form">
+                            <input id="costGrade" type="text" class="form-control" formControlName="costGrade"
+                                mdbInput mdbValidate [validateSuccess]="false">
+                            <label for="costGrade">Precio grado</label>
+                            <mdb-error *ngIf="submitted && f.costGrade.errors && f.costGrade.invalid">Requerido</mdb-error>
+                        </div>
+                    </form>
+                    <button type="button" [disabled]="!formPriceGrade.valid" mdbBtn color="dark" mdbWavesEffect (click)="savePriceGrade()">Agregar</button>
+                </mdb-card-body>
+            </mdb-card>            
+        </div> -->
+        <div class="col-md-8">
+            <mdb-card>
+                <mdb-card-body>
+                    <h3 class="text-center">Lista de grados</h3>
+                    <table mdbTable #tableEl="mdbTable" striped="true">
+                        <caption></caption>
+                        <thead>
+                          <tr class="text-center">
+                            <th *ngFor="let head of headElements" scope="col">{{ head }}</th>
+                          </tr>
+                        </thead>
+                        <tbody #row>
+                          <tr mdbTableCol *ngFor="let el of elements; let i = index" class="text-center">
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.name }}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">{{el.cost}}</td>
+                            <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                              <a href="javascript:void(0)" mdbTooltip="Editar" class="text-action mr-2" (click)="editarGrado(el)">
+                                <mdb-icon far icon="edit"></mdb-icon>
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tfoot class="grey lighten-5 w-100">
+                          <tr>
+                            <td colspan="6">
+                              <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="elements"></mdb-table-pagination>
+                            </td>
+                          </tr>
+                        </tfoot>
+                    </table>
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+    </div>
+</div>

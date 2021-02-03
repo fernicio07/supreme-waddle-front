@@ -1,0 +1,107 @@
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h2 class="text-center w-100 m-0" id="myModalLabel">Editando pago</h2>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form">
+            <div class="form-row">
+                <div class="col">
+                    <div class="md-form">
+                        <input id="instruccion" type="text" class="form-control" formControlName="instruccion" mdbInput mdbValidate
+                            [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                            <label for="instruccion">Instrucción</label>
+                        <mdb-error *ngIf="instruccion.invalid && (instruccion.dirty || instruccion.touched)">Input is required</mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input id="donativo" type="text" class="form-control" formControlName="donativo" mdbInput mdbValidate
+                            [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                            <label for="donativo">Donativo</label>
+                        <mdb-error *ngIf="donativo.invalid && (donativo.dirty || donativo.touched)">Input is required</mdb-error>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="md-form">
+                        <input id="cuido" type="text" class="form-control" formControlName="cuido" mdbInput mdbValidate
+                            [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                            <label for="cuido">Cuido</label>
+                        <mdb-error *ngIf="cuido.invalid && (cuido.dirty || cuido.touched)">Input is required</mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input id="matricula" type="text" class="form-control" formControlName="matricula" mdbInput mdbValidate
+                            [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                            <label for="matricula">Matricula</label>
+                        <mdb-error *ngIf="matricula.invalid && (matricula.dirty || matricula.touched)">Input is required</mdb-error>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="md-form">
+                        <input id="seguro" type="text" class="form-control" formControlName="seguro" mdbInput mdbValidate
+                            [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                            <label for="seguro">Seguro</label>
+                        <mdb-error *ngIf="seguro.invalid && (seguro.dirty || seguro.touched)">Input is required</mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input id="seguridad" type="text" class="form-control" formControlName="seguridad" mdbInput mdbValidate
+                            [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                            <label for="seguridad">Seguridad</label>
+                        <mdb-error *ngIf="seguridad.invalid && (seguridad.dirty || seguridad.touched)">Input is required</mdb-error>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="md-form">
+                        <input id="tecnologia" type="text" class="form-control" formControlName="tecnologia" mdbInput mdbValidate
+                            [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                            <label for="tecnologia">Tecnología</label>
+                        <mdb-error *ngIf="tecnologia.invalid && (tecnologia.dirty || tecnologia.touched)">Input is required</mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input id="mantenimiento" type="text" class="form-control" formControlName="mantenimiento" mdbInput mdbValidate
+                            [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                            <label for="mantenimiento">Mantenimiento</label>
+                        <mdb-error *ngIf="mantenimiento.invalid && (mantenimiento.dirty || mantenimiento.touched)">Input is required</mdb-error>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="md-form">
+                        <input id="anuario" type="text" class="form-control" formControlName="anuario" mdbInput mdbValidate
+                            [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                            <label for="anuario">Anuario</label>
+                        <mdb-error *ngIf="anuario.invalid && (anuario.dirty || anuario.touched)">Input is required</mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input id="graduacion" type="text" class="form-control" formControlName="graduacion" mdbInput mdbValidate
+                            [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                            <label for="graduacion">Graduación</label>
+                        <mdb-error *ngIf="graduacion.invalid && (graduacion.dirty || graduacion.touched)">Input is required</mdb-error>
+                    </div>
+                </div>
+            </div>            
+        </form>
+    </div>
+    <div class="modal-footer border-0">
+        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="modalRef.hide()" mdbWavesEffect>Close</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect [disabled]="form.invalid" (click)="editRow()">Save!</button>
+    </div>
+</div>

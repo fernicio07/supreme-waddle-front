@@ -1,0 +1,62 @@
+<div class="row mt-4">
+    <div class="col-md-12">
+        <mdb-card class="narrower card card-cascade">
+            <div class="view view-cascade gradient-card-header w-25 mx-auto">
+                <h2 class="h2-responsive mb-0">
+                    Familias
+                </h2>
+            </div>
+            <!--Card content-->
+            <mdb-card-body>
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="md-form">
+                            <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput />
+                            <label for="search">Buscar</label>
+                        </div>
+                    </div>
+                </div>
+                <table mdbTable #tableEl="mdbTable" striped="true">
+                    <caption></caption>
+                    <thead>
+                        <tr class="text-center">
+                            <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                        </tr>
+                    </thead>
+                    <tbody #row>
+                        <tr mdbTableCol *ngFor="let el of families; let i = index" class="text-center">
+                            <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                                scope="row">{{el.codigoFamilia}}</th>
+                            <td
+                                *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                {{el.nombrePadre | uppercase}} {{el.apellidoPadre | uppercase}}</td>
+                            <td
+                                *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                {{el.nombreMadre | uppercase}} {{el.apellidoMadre | uppercase}}</td>
+                            <td
+                                *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                {{el.numeroStudent}}</td>
+                            <td
+                                *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                <a href="javascript:void(0)" mdbTooltip="Editar" class="text-action mr-2" (click)="editFamily(el)">
+                                    <mdb-icon far icon="edit"></mdb-icon>
+                                </a>
+                                <a href="javascript:void(0)" mdbTooltip="Eliminar" class="text-action" (click)="deleteFamily(el)"  *ngIf="el.numeroStudent < 1">
+                                    <mdb-icon far icon="trash-alt"></mdb-icon>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="grey lighten-5 w-100">
+                        <tr>
+                            <td colspan="5">
+                                <mdb-table-pagination [tableEl]="tableEl" paginationAlign=""
+                                    [searchDataSource]="elements"></mdb-table-pagination>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </mdb-card-body>
+        </mdb-card>
+    </div>
+</div>

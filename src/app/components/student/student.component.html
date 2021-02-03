@@ -1,0 +1,76 @@
+<button type="button" mdbBtn color="primary" mdbWavesEffect class="dashed-button" (click)="crearEstudiante()">
+    <mdb-icon fas icon="plus"></mdb-icon>
+    Agregar Etudiante
+</button>
+<div class="row mt-4">
+    <div class="col-md-12">
+        <mdb-card class="narrower card card-cascade">
+                <div class="view view-cascade gradient-card-header w-25 mx-auto">
+                    <h2 class="h2-responsive mb-0">
+                        Estudiantes
+                    </h2>
+                </div>
+                <!--Card content-->
+                <mdb-card-body>
+                    <h3 class="text-center">Buscar estudiantes por Codigo de Familia</h3>
+                    <div class="row">
+                        <div class="col-md-12 mx-auto">
+                            <div class="md-form">
+                                <input type="text" [(ngModel)]="searchText" class="form-control" id="search" mdbInput />
+                                <label for="search">Buscar</label>
+                            </div>
+                        </div>
+                    </div>
+                    <table mdbTable #tableEl="mdbTable" striped="true">
+                        <caption></caption>
+                        <thead>
+                            <tr class="text-center">
+                                <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                            </tr>
+                        </thead>
+                        <tbody #row>
+                            <tr mdbTableCol *ngFor="let el of elements; let i = index" class="text-center">
+                                <td
+                                    *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{el.codigoFamilia}}
+                                </td>
+                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{el.name | uppercase}}
+                                </td>
+                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{el.lastName | uppercase}}
+                                </td>
+                                <td
+                                    *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{el.grade.name}}
+                                </td>
+                                <td
+                                    *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{el.birthdayDate}}
+                                </td>
+                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    <a href="javascript:void(0)" mdbTooltip="Editar" class="text-action mr-2" (click)="editarEstudiantes(el)">
+                                        <mdb-icon far icon="edit"></mdb-icon>
+                                    </a>
+                                    <a href="javascript:void(0)" mdbTooltip="Eliminar" class="text-action mr-2" (click)="eliminarEstudiante(el)" *ngIf="el.onEliminar">
+                                        <mdb-icon far icon="trash-alt"></mdb-icon>
+                                    </a>
+                                    <a href="javascript:void(0)" mdbTooltip="Dar debaja" class="text-action" (click)="archivarEstudiante(el)" *ngIf="el.onArchivar">
+                                        <mdb-icon far icon="folder-open"></mdb-icon>
+                                    </a>  
+                                </td>                                
+                            </tr>
+                        </tbody>
+                        <tfoot class="grey lighten-5 w-100">
+                            <tr>
+                                <td colspan="9">
+                                    <mdb-table-pagination [tableEl]="tableEl" paginationAlign=""
+                                        [searchDataSource]="elements"></mdb-table-pagination>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </mdb-card-body>
+        </mdb-card>
+    </div>
+</div>

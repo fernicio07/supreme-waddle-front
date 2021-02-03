@@ -1,0 +1,119 @@
+<form [formGroup]="familyMomForm">
+    <h1 class="mb-3">Madre</h1>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="nameMom" type="text" class="form-control" formControlName="nameMom" mdbInput mdbValidate
+                    [validateSuccess]="false">
+                <label for="nameMom">Nombre</label>
+                <!-- <mdb-error *ngIf="submitted && f.nameMom.errors && f.nameMom.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="lastNameMom" type="text" class="form-control" formControlName="lastNameMom" mdbInput
+                    mdbValidate [validateSuccess]="false">
+                <label for="lastNameMom">Apellidos</label>
+                <!-- <mdb-error *ngIf="submitted && f.lastNameMom.errors && f.lastNameMom.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="occupationMom" type="text" class="form-control" formControlName="occupationMom" mdbInput
+                    mdbValidate [validateSuccess]="false">
+                <label for="occupationMom">Ocupación</label>
+                <!-- <mdb-error *ngIf="submitted && f.occupationMom.errors && f.occupationMom.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="companyMom" type="text" class="form-control" formControlName="companyMom" mdbInput
+                    mdbValidate [validateSuccess]="false">
+                <label for="companyMom">Empresa</label>
+                <!-- <mdb-error *ngIf="submitted && f.companyMom.errors && f.companyMom.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- <div class="col-md-3">
+            <div class="md-form">
+                <textarea type="text" id="physicalAddressMom" class="md-textarea md-textarea-auto form-control" rows="1" mdbInput formControlName="physicalAddressMom"></textarea>
+                <label for="physicalAddressMom">Dirección Pago</label>
+                <mdb-error *ngIf="submitted && f.physicalAddressMom.errors && f.physicalAddressMom.invalid">Requerido
+                </mdb-error>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <textarea type="text" id="mailingAddressMom" class="md-textarea md-textarea-auto form-control" rows="1" mdbInput formControlName="mailingAddressMom"></textarea>
+                <label for="mailingAddressMom">Dirección Circular</label>
+                <mdb-error *ngIf="submitted && f.mailingAddressMom.errors && f.mailingAddressMom.invalid">Requerido
+                </mdb-error>
+            </div>
+        </div> -->
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="homePhoneMom" type="text" class="form-control" formControlName="homePhoneMom" mdbInput
+                    mdbValidate [validateSuccess]="false" appPhoneMask>
+                <label for="homePhoneMom">Teléfono de Casa</label>
+                <!-- <mdb-error *ngIf="submitted && f.homePhoneMom.errors && f.homePhoneMom.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="workPhoneMom" type="text" class="form-control" formControlName="workPhoneMom" mdbInput
+                    mdbValidate [validateSuccess]="false" appPhoneMask>
+                <label for="workPhoneMom">Teléfono de Trabajo</label>
+                <!-- <mdb-error *ngIf="submitted && f.workPhoneMom.errors && f.workPhoneMom.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="mobilePhoneMom" type="text" class="form-control" formControlName="mobilePhoneMom" mdbInput
+                    mdbValidate [validateSuccess]="false" appPhoneMask>
+                <label for="mobilePhoneMom">Teléfono Móvil</label>
+                <!-- <mdb-error *ngIf="submitted && f.mobilePhoneMom.errors && f.mobilePhoneMom.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="emailMom" type="email" class="form-control c-email" formControlName="emailMom" mdbInput mdbValidate
+                    [validateSuccess]="false">
+                <label for="emailMom">Correo Electrónico</label>
+                <!-- <mdb-error *ngIf="submitted && f.emailMom.errors && f.emailMom.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="hobbyMom" type="text" class="form-control" formControlName="hobbyMom" mdbInput mdbValidate
+                    [validateSuccess]="false">
+                <label for="hobbyMom">Pasatiempo favorito</label>
+                <!-- <mdb-error *ngIf="submitted && f.hobbyMom.errors && f.hobbyMom.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">        
+        <div class="col-md-3">
+            <span>Madre Exalumna</span>
+            <div class="md-form mt-1">
+                <select id="exAlumnaMom" class="browser-default custom-select" name="exAlumnaMom"
+                    formControlName="exAlumnaMom" mdbValidate [validateSuccess]="false" (ngModelChange)="modelExAlumna($event)">
+                    <option [ngValue]="true">Si</option>
+                    <option [ngValue]="false">No</option>
+                </select>
+                <!-- <mdb-error *ngIf="submitted && f.exAlumnaMom.errors && f.exAlumnaMom.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3" *ngIf="mostrarAnioEstudio">
+            <div class="md-form">
+                <input id="yearStudyMom" type="text" class="form-control" formControlName="yearStudyMom" mdbInput
+                    mdbValidate [validateSuccess]="false" pattern="^(0?[10]|[1-9][0-9])$" maxlength="2">
+                <label for="yearStudyMom">Clase Graduanda</label>
+                <mdb-error *ngIf="submitted && f.yearStudyMom.errors && f.yearStudyMom.invalid">Requerido</mdb-error>
+            </div>
+        </div>
+    </div>
+</form>

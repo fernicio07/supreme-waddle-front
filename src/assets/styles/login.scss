@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+.intro-2 {
+    background: url("./assets/img/3.jpg") center center/cover no-repeat;
+}
+
+.intro {
+    min-height: 100vh;
+    position: relative;
+}
+
+.md-form .prefix.active {
+    color: #212529;
+}
+
+input.form-control.validate-error.ng-invalid.ng-touched, input.form-control.validate-error.ng-invalid.ng-dirty, .form-submitted input.form-control.validate-error.ng-invalid {
+    box-shadow: none !important;
+}

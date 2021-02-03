@@ -1,0 +1,104 @@
+/* You can add global styles to this file, and also import other style files */
+@import './assets/styles/login.scss';
+@import './assets/styles/dashboard.scss';
+@import './assets/styles/navbar.scss';
+@import './assets/styles/datepicker.scss';
+@import './assets/styles/sidebar.scss';
+@import './assets/styles/material.scss';
+@import './assets/styles/cards.scss';
+
+.content-mes {
+    line-height: 2.5rem;
+    width: 100%;
+}
+
+.border-t-2 {
+    border-top: 2px solid !important;
+}
+
+.border-r-2 {
+    border-right: 2px solid;
+}
+
+.border-l-2 {
+    border-left: 2px solid;
+}
+
+.mat-tab-label .mat-tab-label-content {
+    font-size: 16px;
+    font-weight: bold;
+}
+.page-container input:not(.c-email), 
+.page-container textarea, 
+.modal .modal-content input:not(.c-email) {
+    text-transform: uppercase !important;
+}
+
+.bc-blue {
+    background-color: #245178 !important;
+}
+
+.loading{
+    color: white;
+    padding-top: 50px;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; color: #6D7785 !important }
+
+
+.info-color {
+    background-color: #005aab !important;
+}
+
+button.btn-info {
+    background-color: #005aab !important;
+}
+
+.cdk-overlay-container {
+    z-index: 1060;
+}
+
+.modal-open .modal {
+    overflow-y: auto !important;
+}
+
+.text-action {
+    font-size: 1rem;
+    color: #005aab !important;
+}
+
+table.table {
+    color: #6D7785;
+}
+
+table.table thead th {
+    white-space: nowrap;
+}
+
+.dashed-button.btn {
+    border: 2px solid #6E9CA0 !important;
+    background-color: transparent !important;
+    color: #6E8CA0 !important;
+    border-style: dashed !important;
+    border-radius: 10em !important;
+    max-width: 268px;
+}
+.link_primary {
+    color: #005aab !important;
+    font-weight: 500;
+    text-decoration: underline !important;
+}
+
+small {
+    font-size: 12.8px !important;
+}
+
+.btn-primary.btn,
+.btn-danger.btn {
+    border-radius: 25px;
+}
+
+form span {
+    font-size: 1rem;
+    color: #757575;
+}

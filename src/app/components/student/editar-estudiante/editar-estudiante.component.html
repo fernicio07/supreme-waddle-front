@@ -1,0 +1,227 @@
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="text-center w-100 m-0" id="myModalLabel">Editando estudiante: <strong>{{editableRow.name}}</strong></h4>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form">
+            <div class="form-row">
+                <div class="col">
+                    <div class="md-form">
+                        <input id="codigoFamilia" type="text" class="form-control" formControlName="codigoFamilia" mdbInput mdbValidate
+                            [validateSuccess]="false" [readOnly]="true">
+                        <label for="codigoFamilia">Código Familia</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input id="namePadre" type="text" class="form-control" formControlName="namePadre" mdbInput mdbValidate
+                            [validateSuccess]="false" [readOnly]="true">
+                        <label for="namePadre">Padre</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input id="nameMadre" type="text" class="form-control" formControlName="nameMadre" mdbInput mdbValidate
+                            [validateSuccess]="false" [readOnly]="true">
+                        <label for="nameMadre">Padre</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">                
+                <div class="col">
+                    <div class="md-form">
+                        <input id="name" type="text" class="form-control" formControlName="name" mdbInput mdbValidate
+                            [validateSuccess]="false">
+                            <label for="name">Nombre</label>
+                        <mdb-error *ngIf="name.invalid && (name.dirty || name.touched)">Input es requerido</mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input id="lastName" type="text" class="form-control" formControlName="lastName" mdbInput mdbValidate
+                            [validateSuccess]="false">
+                            <label for="lastName">Apellidos</label>
+                        <mdb-error *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">Input es requerido</mdb-error>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                
+                <div class="col">
+                    <span>Grado</span>
+                    <div class="md-form mt-1">
+                        <select id="grade" class="browser-default custom-select" name="grade"
+                            formControlName="grade" mdbValidate [validateSuccess]="false" [validateError]="false">
+                            <option [value]="item._id" *ngFor="let item of priceGrades" >{{item.name}}</option>
+                        </select>
+                        <mdb-error *ngIf="grade.invalid && (grade.dirty || grade.touched)">Input es requerido</mdb-error>                        
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <div class="">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Fecha de nacimiento</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="birthdayDate" 
+                                    (dateInput)="addEvent('input', $event, birthdayDate)" placeholder="DD/MM/YYYY">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>                 
+                        </div>
+                        <mdb-error *ngIf="birthdayDate.invalid && (birthdayDate.dirty || birthdayDate.touched)">Input es requerido</mdb-error>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="md-form">
+                        <input id="birthdayPlace" type="text" class="form-control" formControlName="birthdayPlace" mdbInput mdbValidate
+                            [validateSuccess]="false">
+                            <label for="birthdayPlace">Lugar de nacimiento</label>
+                        <mdb-error *ngIf="birthdayPlace.invalid && (birthdayPlace.dirty || birthdayPlace.touched)">Input es requerido</mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input id="ciudadania" type="text" class="form-control" formControlName="ciudadania" mdbInput mdbValidate
+                            [validateSuccess]="false">
+                            <label for="ciudadania">Ciudadania</label>
+                        <mdb-error *ngIf="ciudadania.invalid && (ciudadania.dirty || ciudadania.touched)">Input es requerido</mdb-error>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <!-- <div class="col">
+                    <div class="md-form">
+                        <input id="numberPhone" type="text" class="form-control" formControlName="numberPhone" mdbInput mdbValidate
+                            [validateSuccess]="false">
+                            <label for="numberPhone">Numero de Teléfono</label>
+                        <mdb-error *ngIf="numberPhone.invalid && (numberPhone.dirty || numberPhone.touched)">Input es requerido</mdb-error>
+                    </div>
+                </div> -->
+                <div class="col">
+                    <div class="md-form">
+                        <input id="insuranceSocial" type="text" class="form-control" formControlName="insuranceSocial" mdbInput mdbValidate
+                            [validateSuccess]="false" appSeguroSocialMask>
+                            <label for="insuranceSocial">Seguro social</label>
+                        <mdb-error *ngIf="insuranceSocial.invalid && (insuranceSocial.dirty || insuranceSocial.touched)">Input es requerido</mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <span>Vive con:</span>
+                    <div class="md-form mt-1">
+                        <select id="livewith" name="livewith" 
+                            class="browser-default custom-select" name="livewith"
+                            formControlName="livewith" mdbValidate [validateSuccess]="false">
+                            <option value="dad">Padre</option>
+                            <option value="mom">Madre</option>
+                            <option value="both">Ambos</option>
+                            <option value="guardian">Encargado</option>
+                        </select>
+                        <mdb-error *ngIf="livewith.invalid && (livewith.dirty || livewith.touched)">Input es requerido</mdb-error>                        
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">                
+                <div class="col">
+                    <span>Hija de maestro</span>
+                    <div class="md-form mt-1">
+                        <select id="hijoMaestro" class="browser-default custom-select" name="hijoMaestro"
+                            formControlName="hijoMaestro" mdbValidate [validateSuccess]="false" (ngModelChange)="modelChanged($event)">
+                            <option [ngValue]="true">Si</option>
+                            <option [ngValue]="false">No</option>
+                        </select>
+                        <mdb-error *ngIf="hijoMaestro.invalid && (hijoMaestro.dirty || hijoMaestro.touched)">Input es requerido</mdb-error>                        
+                    </div>
+                </div>
+                <div class="col-6">
+                    <span>Vuelve año que viene</span>
+                    <div class="md-form mt-1">
+                        <select id="vuelveAnioProximo" class="browser-default custom-select" name="vuelveAnioProximo"
+                            formControlName="vuelveAnioProximo" mdbValidate [validateSuccess]="false">
+                            <option [ngValue]="true">Si</option>
+                            <option [ngValue]="false">No</option>
+                        </select>
+                        <mdb-error *ngIf="vuelveAnioProximo.invalid && (vuelveAnioProximo.dirty || vuelveAnioProximo.touched)">Input es requerido</mdb-error>                        
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form [formGroup]="cantidadStudentForm">
+            <h1 class="text-center">Cantidad Estudiante</h1>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="md-form">
+                        <input id="instruccionAnualStudent" type="text" class="form-control" formControlName="instruccionAnualStudent" mdbInput mdbValidate
+                            [validateSuccess]="false">
+                        <label for="instruccionAnualStudent">Instrucción Anual</label>
+                        <mdb-error *ngIf="submitted && f.instruccionAnualStudent.errors && f.instruccionAnualStudent.invalid">Requerido</mdb-error>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="md-form">
+                        <input id="meses" type="text" class="form-control" formControlName="meses" mdbInput mdbValidate
+                            [validateSuccess]="false" (ngModelChange)="obtenerInstruccionMensual($event)">
+                        <label for="meses">Meses</label>
+                        <mdb-error *ngIf="submitted && f.meses.errors && f.meses.invalid">Requerido</mdb-error>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="md-form">
+                        <input id="instruccionStudent" type="text" class="form-control" formControlName="instruccionStudent" mdbInput mdbValidate
+                            [validateSuccess]="false">
+                        <label for="instruccionStudent">Instrucción Mensual</label>
+                        <mdb-error *ngIf="submitted && f.instruccionStudent.errors && f.instruccionStudent.invalid">Requerido</mdb-error>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="md-form">
+                        <input id="matriculaStudent" type="text" class="form-control" formControlName="matriculaStudent" mdbInput mdbValidate
+                            [validateSuccess]="false">
+                        <label for="matriculaStudent">Matricula</label>
+                        <mdb-error *ngIf="submitted && f.matriculaStudent.errors && f.matriculaStudent.invalid">Requerido</mdb-error>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="md-form">
+                        <input id="seguroStudent" type="text" class="form-control" formControlName="seguroStudent" mdbInput mdbValidate
+                            [validateSuccess]="false">
+                        <label for="seguroStudent">Seguro</label>
+                        <mdb-error *ngIf="submitted && f.seguroStudent.errors && f.seguroStudent.invalid">Requerido</mdb-error>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="md-form">
+                        <input id="graduationFee" type="text" class="form-control" formControlName="graduationFee" mdbInput mdbValidate
+                            [validateSuccess]="false">
+                        <label for="graduationFee">Graduación</label>
+                        <mdb-error *ngIf="submitted && f.graduationFee.errors && f.graduationFee.invalid">Requerido</mdb-error>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="md-form">
+                        <input id="cuido" type="text" class="form-control" formControlName="cuido" mdbInput mdbValidate
+                            [validateSuccess]="false">
+                        <label for="cuido">Cuido</label>
+                        <mdb-error *ngIf="submitted && f.cuido.errors && f.cuido.invalid">Requerido</mdb-error>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="md-form">
+                        <input id="librosDigitales" type="text" class="form-control" formControlName="librosDigitales" mdbInput mdbValidate
+                            [validateSuccess]="false">
+                        <label for="librosDigitales">Libros digitales</label>
+                        <mdb-error *ngIf="submitted && f.librosDigitales.errors && f.librosDigitales.invalid">Requerido</mdb-error>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer border-0">
+        <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect [disabled]="form.invalid" (click)="editRow()">Guardar y cerrar</button>
+    </div>
+</div>

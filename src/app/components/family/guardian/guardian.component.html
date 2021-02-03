@@ -1,0 +1,85 @@
+<form [formGroup]="familyGuardianForm">
+    <h1 class="mb-3">Guardián</h1>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="nameGuardian" type="text" class="form-control" formControlName="nameGuardian" mdbInput
+                    mdbValidate [validateSuccess]="false">
+                <label for="nameGuardian">Nombre</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="lastNameGuardian" type="text" class="form-control" formControlName="lastNameGuardian"
+                    mdbInput mdbValidate [validateSuccess]="false">
+                <label for="lastNameGuardian">Apellidos</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="occupationGuardian" type="text" class="form-control" formControlName="occupationGuardian"
+                    mdbInput mdbValidate [validateSuccess]="false">
+                <label for="occupationGuardian">Ocupación</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="companyGuardian" type="text" class="form-control" formControlName="companyGuardian" mdbInput
+                    mdbValidate [validateSuccess]="false">
+                <label for="companyGuardian">Empresa</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- <div class="col-md-3">
+            <div class="md-form">
+                <textarea type="text" id="physicalAddressGuardian" class="md-textarea md-textarea-auto form-control" rows="1" mdbInput formControlName="physicalAddressGuardian"></textarea>
+                <label for="physicalAddressGuardian">Dirección Pago</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <textarea type="text" id="mailingAddressGuardian" class="md-textarea md-textarea-auto form-control" rows="1" mdbInput formControlName="mailingAddressGuardian"></textarea>
+                <label for="mailingAddressGuardian">Dirección Circular</label>
+            </div>
+        </div> -->
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="homePhoneGuardian" type="text" class="form-control" formControlName="homePhoneGuardian"
+                    mdbInput mdbValidate [validateSuccess]="false" appPhoneMask>
+                <label for="homePhoneGuardian">Teléfono de Casa</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="workPhoneGuardian" type="text" class="form-control" formControlName="workPhoneGuardian"
+                    mdbInput mdbValidate [validateSuccess]="false" appPhoneMask>
+                <label for="workPhoneGuardian">Teléfono de Trabajo</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="mobilePhoneGuardian" type="text" class="form-control" formControlName="mobilePhoneGuardian"
+                    mdbInput mdbValidate [validateSuccess]="false" appPhoneMask >
+                <label for="mobilePhoneGuardian">Teléfono Móvil</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="emailGuardian" type="email" class="form-control c-email" formControlName="emailGuardian" mdbInput
+                    mdbValidate [validateSuccess]="false">
+                <label for="emailGuardian">Correo Electrónico</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="hobbyGuardian" type="text" class="form-control" formControlName="hobbyGuardian" mdbInput
+                    mdbValidate [validateSuccess]="false">
+                <label for="hobbyGuardian">Pasatiempo favorito</label>
+            </div>
+        </div>
+    </div>
+</form>

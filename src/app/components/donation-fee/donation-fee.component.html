@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <mdb-card>
+                <mdb-card-body>
+                    <h3 class="text-center">Lista Donation Fee</h3>
+                    <table mdbTable #tableDonationFee="mdbTable" striped="true">
+                        <caption></caption>
+                        <thead>
+                          <tr class="text-center">
+                            <th *ngFor="let head of headElementsDonationFee" scope="col">{{ head }}</th>
+                          </tr>
+                        </thead>
+                        <tbody #row>
+                          <tr mdbTableCol *ngFor="let el of elementsDonation; let i = index" class="text-center">
+                            <td>{{el.name }}</td>
+                            <td>{{el.cost}}</td>
+                            <td>
+                              <a href="javascript:void(0)" mdbTooltip="Editar" class="text-action mr-2" (click)="editarDonationFee(el)">
+                                <mdb-icon far icon="edit"></mdb-icon>
+                              </a>                              
+                            </td>
+                          </tr>
+                        </tbody>
+                    </table>
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+    </div>
+</div>

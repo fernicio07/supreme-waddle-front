@@ -1,0 +1,57 @@
+<div class="row mt-4">
+    <div class="col-md-12">
+        <mdb-card class="narrower card card-cascade">
+                <div class="view view-cascade gradient-card-header w-25 mx-auto">
+                    <h2 class="h2-responsive mb-0">
+                        Estudiantes De Baja
+                    </h2>
+                </div>
+                <!--Card content-->
+                <mdb-card-body>
+                    <table mdbTable #tableEl="mdbTable" striped="true">
+                        <caption></caption>
+                        <thead>
+                            <tr class="text-center">
+                                <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                            </tr>
+                        </thead>
+                        <tbody #row>
+                            <tr mdbTableCol *ngFor="let el of elements; let i = index" class="text-center">
+                                <td
+                                    *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{el.codigoFamilia}}
+                                </td>
+                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{el.name}}
+                                </td>
+                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{el.lastName}}
+                                </td>
+                                <td
+                                    *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{el.grade.name}}
+                                </td>
+                                <td
+                                    *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    {{el.birthdayDate}}
+                                </td>
+                                <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                    <a href="javascript:void(0)" mdbTooltip="Desarchivar" class="text-action" (click)="desarchivarEstudiante(el)">
+                                        <mdb-icon far icon="folder-open"></mdb-icon>
+                                    </a>  
+                                </td>                                
+                            </tr>
+                        </tbody>
+                        <tfoot class="grey lighten-5 w-100">
+                            <tr>
+                                <td colspan="9">
+                                    <mdb-table-pagination [tableEl]="tableEl" paginationAlign=""
+                                        [searchDataSource]="elements"></mdb-table-pagination>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </mdb-card-body>
+        </mdb-card>
+    </div>
+</div>

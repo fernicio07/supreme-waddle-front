@@ -1,0 +1,30 @@
+.menu-sidebar-content .navbar-sidebar {
+    li {
+        a {
+            color: #000;
+            i {
+                font-size: 15px;
+            }
+        }
+        &:hover {
+            background: rgba(0,0,0,.04);
+        }
+    }
+    
+    .mat-accordion {
+        .mat-expansion-panel-header {
+            height: 40px !important;
+            padding: 0 20px;
+        }
+        .mat-expansion-panel {
+            box-shadow: none;
+            border-radius: 0;
+            .mat-expansion-panel-content {
+                background-color: rgba(95,93,93,0.15);
+                .mat-expansion-panel-body {
+                    padding: 0;
+                }
+            }
+        }
+    }
+}

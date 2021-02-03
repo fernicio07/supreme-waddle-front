@@ -1,0 +1,179 @@
+<div class="row">
+    <div class="col-md-12">
+        <h1>Reportes</h1>
+        <p>En esta seccion se pueden realizar reportes</p>
+        <form [formGroup]="formReportStudentGrade">
+            <div class="row">
+                <div class="col-md-3">
+                    <span>Tipo de reporte</span>
+                    <div class="md-form mt-1">
+                        <select id="tipoDeReporte" class="browser-default custom-select" name="tipoDeReporte"
+                            formControlName="tipoDeReporte" mdbValidate [validateSuccess]="false" (ngModelChange)="changeTipoReporte($event)">
+                            <option [value]="tipoDeReporte.key" *ngFor="let tipoDeReporte of tipoDeReportes" >{{tipoDeReporte.description}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="f.tipoDeReporte.value == '1'">
+                <div class="w-25">
+                    <span>Grade Student</span>
+                    <div class="md-form mt-1">
+                        <select id="priceGrade" class="browser-default custom-select" name="priceGrade"
+                            formControlName="priceGrade" mdbValidate [validateSuccess]="false" (ngModelChange)="getStudentsForGrade($event)">
+                            <option [value]="priceGrade._id" *ngFor="let priceGrade of priceGrades" >{{priceGrade.cost}} - {{priceGrade.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="f.tipoDeReporte.value == '3'">
+                <h2>Tipo de reporte en periodo</h2>
+                <p class="text-danger">* Los campos de fecha son obligatorios</p>
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Fecha desde</mat-label>
+                            <input #inputDatePicker matInput [matDatepicker]="picker1" formControlName="fromDate" placeholder="DD/MM/YYYY"
+                                (dateInput)="addEventFrom($event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Fecha hasta</mat-label>
+                            <input #inputDatePicker matInput [matDatepicker]="picker2" formControlName="toDate" placeholder="DD/MM/YYYY"
+                                (dateInput)="addEventTo($event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="m-0" type="button" mdbBtn color="primary" mdbWavesEffect (click)="searchTotalPeriodo()">Aplicar</button>
+                    </div>
+                </div>
+                
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row" [hidden]="!mostrarTablaStudents">
+    <div class="col-md-6">
+        <mdb-card>
+            <mdb-card-header class="view info-color">
+                <h4 class="h4-responsive text-white mb-0 text-center">Students</h4>
+            </mdb-card-header>
+
+            <!--Card content-->
+            <mdb-card-body>
+                <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="downloadReporte()" [disabled]="disabledDownloadPdf">Descargar Reporte</button>
+                <table mdbTable #tableStudents="mdbTable" striped="true">
+                    <caption></caption>
+                    <thead>
+                        <tr class="text-center">
+                            <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                        </tr>
+                    </thead>
+                    <tbody #row>
+                        <tr mdbTableCol *ngFor="let el of elements; let i = index" class="text-center">
+                            <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                                scope="row">{{el.name}}</th>
+                            <td
+                                *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                {{el.lastName}}</td>
+                            <td
+                                *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                {{el.middleName}}</td>
+                            <td
+                                *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                                {{el.codigoFamilia}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot class="grey lighten-5 w-100">
+                        <tr>
+                            <td colspan="6">
+                                <mdb-table-pagination [tableEl]="tableStudents" paginationAlign=""
+                                    [searchDataSource]="elements"></mdb-table-pagination>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </mdb-card-body>
+        </mdb-card>
+    </div>
+</div>
+
+<div class="row" [hidden]="!mostrarTablaTotalesAnio">
+    <div class="col-md-6">
+        <mdb-card>
+            <mdb-card-header class="view info-color">
+                <h4 class="h4-responsive text-white mb-0 text-center">Totales Año</h4>
+            </mdb-card-header>
+
+            <!--Card content-->
+            <mdb-card-body>
+                <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="downloadReporteTotalesAnio()" [disabled]="disabledDownloadPdf">Descargar Reporte</button>
+                <table mdbTable #tableTotalesAnio="mdbTable" striped="true">
+                    <caption></caption>
+                    <thead>
+                        <tr class="text-center">
+                            <th *ngFor="let head of headElementsTotalAnio" scope="col">{{head}} </th>
+                        </tr>
+                    </thead>
+                    <tbody #row>
+                        <tr mdbTableCol *ngFor="let el of elementsTotalesAnio; let i = index" class="text-center">
+                            <th scope="row"><strong>{{el.totalMensualidadesAnio}}</strong></th>
+                            <td><strong>{{el.totalDonativoAnio}}</strong></td>
+                            <td><strong>{{el.totalMatriculaAnio}}</strong></td>
+                            <td><strong>{{el.totalGraduationFeeAnio}}</strong></td>
+                            <td><strong>{{el.sumaTodosTotales}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </mdb-card-body>
+        </mdb-card>
+    </div>
+</div>
+
+<div class="row" [hidden]="!mostrarTablaTotalesPeriodo">
+    <div class="col">
+        <mdb-card>
+            <mdb-card-header class="view info-color">
+                <h4 class="h4-responsive text-white mb-0 text-center">Totales Periodo</h4>
+            </mdb-card-header>
+
+            <!--Card content-->
+            <mdb-card-body>
+                <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="downloadReporteTotalesPeriodo()" [disabled]="disabledDownloadPdf">Descargar Reporte</button>
+                <table mdbTable #tableTotalesPeriodo="mdbTable" striped="true">
+                    <caption></caption>
+                    <thead>
+                        <tr class="text-center">
+                            <th *ngFor="let head of headElementsTotalPeriodo" scope="col">{{head}} </th>
+                        </tr>
+                    </thead>
+                    <tbody #row>
+                        <tr mdbTableCol *ngFor="let el of elementsTotalesPeriodo; let i = index" class="text-center">
+                            <th scope="row"><strong>{{el.instruccion}}</strong></th>
+                            <td><strong>{{el.donativo}}</strong></td>
+                            <td><strong>{{el.graduacion}}</strong></td>
+                            <td><strong>{{el.matricula}}</strong></td>
+                            <td><strong>{{el.anuario}}</strong></td>
+                            <td><strong>{{el.mantenimiento}}</strong></td>
+                            <td><strong>{{el.seguridad}}</strong></td>
+                            <td><strong>{{el.tecnologia}}</strong></td>
+                            <td><strong>{{el.total}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </mdb-card-body>
+        </mdb-card>
+    </div>
+</div>
+
+<div [hidden]="!mostrarTablaDonativos">
+    <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="downloadReporteDonativos()" [disabled]="disabledDownloadPdf">Descargar Reporte</button>
+</div>

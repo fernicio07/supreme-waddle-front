@@ -1,0 +1,223 @@
+<a class="link_primary text-uppercase" mdbTooltip="Volver" (click)="volver()">
+    <mdb-icon fas icon="chevron-left"></mdb-icon>
+    Volver
+</a>
+<div class="card p-3 mt-3">
+    <h1 class="text-center" *ngIf="!isModoEdit">Registrar Familia</h1>
+    <h1 class="text-center" *ngIf="isModoEdit">Editando Familia <strong>{{ familyCode }}</strong></h1>
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]="familyForm">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="md-form">
+                            <input id="codigoFamilia" type="text" class="form-control" formControlName="codigoFamilia" mdbInput mdbValidate
+                                [validateSuccess]="false" (blur)="validarCaracteres($event.target.value)" (input)="buscarFamiliaByCode($event.target.value)" #inputCodigoFamilia maxlength="5">
+                            <label for="codigoFamilia">Código Familia</label>
+                            <mdb-error *ngIf="submitted && f.codigoFamilia.errors && f.codigoFamilia.invalid">Requerido</mdb-error>
+                            <mdb-error *ngIf="mostrarMensajeError">Favor de entrar 5 caracteres</mdb-error>
+                        </div>                        
+                    </div>
+                </div>
+                <app-dad [submitted]="submitted"></app-dad>
+                <app-mom [submitted]="submitted"></app-mom>
+                <h1 class="mb-3">Dirección facturación</h1>
+                <div class="row">
+                    <div class="col">
+                        <div class="md-form">
+                            <input id="addressFacturacionLineOne" type="text" class="form-control" formControlName="addressFacturacionLineOne" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="addressFacturacionLineOne">Linea 1</label>
+                        </div>
+                        <!-- <div class="md-form">
+                            <textarea type="text" id="billingAddress" class="md-textarea md-textarea-auto form-control" rows="1" mdbInput 
+                                formControlName="billingAddress"></textarea>
+                            <label for="billingAddress">Dirección facturación</label>
+                        </div> -->
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input id="addressFacturacionLineTwo" type="text" class="form-control" formControlName="addressFacturacionLineTwo" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="addressFacturacionLineTwo">Linea 2</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input id="addressFacturacionCity" type="text" class="form-control" formControlName="addressFacturacionCity" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="addressFacturacionCity">Ciudad</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input id="addressFacturacionCountry" type="text" class="form-control" formControlName="addressFacturacionCountry" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="addressFacturacionCountry">Pais</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input id="facturacionZipCode" type="text" class="form-control" formControlName="facturacionZipCode" mdbInput mdbValidate
+                                [validateSuccess]="false" appZipCodeMask>
+                            <label for="facturacionZipCode">Zip Code</label>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="mb-3">Dirección circular</h1>
+                <div class="row">
+                    <div class="col">
+                        <div class="md-form">
+                            <input id="addressCircularLineOne" type="text" class="form-control" formControlName="addressCircularLineOne" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="addressCircularLineOne">Linea 1</label>
+                        </div>
+                        <!-- <div class="md-form">
+                            <textarea type="text" id="circularAddress" class="md-textarea md-textarea-auto form-control" rows="1" mdbInput 
+                                formControlName="circularAddress"></textarea>
+                            <label for="circularAddress">Dirección circular</label>
+                        </div> -->
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input id="addressCircularLineTwo" type="text" class="form-control" formControlName="addressCircularLineTwo" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="addressCircularLineTwo">Linea 2</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input id="addressCircularCity" type="text" class="form-control" formControlName="addressCircularCity" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="addressCircularCity">Ciudad</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input id="addressCircularCountry" type="text" class="form-control" formControlName="addressCircularCountry" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="addressCircularCountry">Pais</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input id="circularZipCode" type="text" class="form-control" formControlName="circularZipCode" mdbInput mdbValidate
+                                [validateSuccess]="false" appZipCodeMask>
+                            <label for="circularZipCode">Zip Code</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <span>Donativo</span>
+                        <div class="md-form mt-1">
+                            <select id="planPagoDonaciones" class="browser-default custom-select" name="planPagoDonaciones"
+                                formControlName="planPagoDonaciones" mdbValidate [validateSuccess]="false" [validateError]="false" (ngModelChange)="modelDonativo($event)">
+                                <option [ngValue]="0">Plan 0 = 0</option>
+                                <option [ngValue]="1">Plan 1 = 150</option>
+                                <option [ngValue]="2">Plan 2 = 75</option>
+                                <option [ngValue]="5">Plan 5 = 1,500</option>
+                            </select>
+                            <mdb-error *ngIf="submitted && f.planPagoDonaciones.errors && f.planPagoDonaciones.invalid">Requerido</mdb-error>
+                        </div>
+                    </div>
+                    <div class="col-md-2" *ngIf="mostrarDonativos">
+                        <div class="md-form">
+                            <input id="donativoAnual" type="text" class="form-control" formControlName="donativoAnual" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="donativoAnual">Donativo Anual</label>
+                            <mdb-error *ngIf="submitted && f.donativoAnual.errors && f.donativoAnual.invalid">Requerido</mdb-error>
+                        </div>
+                    </div>
+                    <div class="col-md-2" *ngIf="mostrarDonativos">
+                        <div class="md-form">
+                            <input id="donativoFuturo" type="text" class="form-control" formControlName="donativoFuturo" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="donativoFuturo">Donativo Futuro</label>
+                            <mdb-error *ngIf="submitted && f.donativoFuturo.errors && f.donativoFuturo.invalid">Requerido</mdb-error>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <span>Pago automático</span>
+                        <div class="md-form mt-1">
+                            <select id="pagoAutomatico" class="browser-default custom-select" name="pagoAutomatico"
+                                formControlName="pagoAutomatico" mdbValidate [validateSuccess]="false" [validateError]="false" (ngModelChange)="modelPagoAutomatico($event)">
+                                <option [ngValue]="true">Si</option>
+                                <option [ngValue]="false">No</option>
+                            </select>
+                            <mdb-error *ngIf="submitted && f.pagoAutomatico.errors && f.pagoAutomatico.invalid">Requerido</mdb-error>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2" *ngIf="mostrarTipoTarjeta">
+                        <span>Tipo de Tarjeta</span>
+                        <div class="md-form mt-1">
+                            <select id="tipoTarjeta" class="browser-default custom-select" name="tipoTarjeta"
+                                formControlName="tipoTarjeta" mdbValidate [validateSuccess]="false" [validateError]="false">
+                                <option value="Visa">Visa</option>
+                                <option value="Mastercard">MasterCard</option>
+                                <option value="Amex">AMEX</option>
+                            </select>
+                            <mdb-error *ngIf="submitted && f.tipoTarjeta.errors && f.tipoTarjeta.invalid">Requerido</mdb-error>
+                        </div>
+                    </div>
+                    <div class="col-md-2" *ngIf="mostrarTipoTarjeta">
+                        <div class="md-form">
+                            <input id="distribuirTotal" type="text" class="form-control" formControlName="distribuirTotal" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="distribuirTotal">Total</label>
+                            <mdb-error *ngIf="submitted && f.distribuirTotal.errors && f.distribuirTotal.invalid && !verificarTotal">Requerido</mdb-error>
+                            <mdb-error *ngIf="submitted && verificarTotal">Verificar total</mdb-error>
+                        </div>
+                    </div>
+                    <div class="col-md-2" *ngIf="mostrarTipoTarjeta">
+                        <div class="md-form">
+                            <input id="cuantoPagaInstruccion" type="text" class="form-control" formControlName="cuantoPagaInstruccion" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="cuantoPagaInstruccion">Instrucción</label>
+                            <mdb-error *ngIf="submitted && f.cuantoPagaInstruccion.errors && f.cuantoPagaInstruccion.invalid">Requerido</mdb-error>
+                        </div>
+                    </div>
+                    <div class="col-md-2" *ngIf="mostrarTipoTarjeta">
+                        <div class="md-form">
+                            <input id="cuantoPagaDonativo" type="text" class="form-control" formControlName="cuantoPagaDonativo" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="cuantoPagaDonativo">Donativo</label>
+                            <mdb-error *ngIf="submitted && f.cuantoPagaDonativo.errors && f.cuantoPagaDonativo.invalid">Requerido</mdb-error>
+                        </div>
+                    </div>
+                    <div class="col-md-2" *ngIf="mostrarTipoTarjeta">
+                        <div class="md-form">
+                            <input id="cuantoPagaCuido" type="text" class="form-control" formControlName="cuantoPagaCuido" mdbInput mdbValidate
+                                [validateSuccess]="false">
+                            <label for="cuantoPagaCuido">Cuido</label>
+                            <mdb-error *ngIf="submitted && f.cuantoPagaCuido.errors && f.cuantoPagaCuido.invalid">Requerido</mdb-error>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="py-3">                    
+                    <mat-slide-toggle id="customSwitch1" formControlName="addFormGuardian" (ngModelChange)="cambio($event)">Mostrar Formulario Guardián</mat-slide-toggle>
+                </div>
+                <div *ngIf="showFormGuardian">
+                    <app-guardian [submitted]="submitted"></app-guardian>
+                </div>
+
+                <div class="row" *ngIf="isModoEdit">
+                    <div class="col-md-12">
+                        <app-cuenta-family [fromFamily]="true"></app-cuenta-family>
+                    </div>                    
+                </div>
+
+                <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="updateFamily()" *ngIf="isModoEdit">Guardar y Cerrar</button>
+                <button type="button" mdbBtn color="danger" mdbWavesEffect (click)="volver()" *ngIf="isModoEdit">Guardar sin cambios</button>
+
+                                
+            </form>
+            <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="saveFamily()" *ngIf="!isModoEdit">Guardar</button>
+            
+            <!-- <button mdbBtn type="button" color="info" [disabled]="desactivarBotonSig" outline="true" mdbWavesEffect (click)="siguienteFormulario()" *ngIf="!isModoEdit">Siguiente</button> -->
+        </div>
+    </div>
+</div>

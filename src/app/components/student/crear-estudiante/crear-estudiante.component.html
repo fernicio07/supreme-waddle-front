@@ -1,0 +1,46 @@
+<a class="link_primary text-uppercase" mdbTooltip="Volver" (click)="volver()">
+    <mdb-icon fas icon="chevron-left"></mdb-icon>
+    Volver
+</a>
+<div class="card p-3 mt-3">
+    <h1 class="text-center" *ngIf="!isModoEdit">Registrar Estudiantes</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]="studentForm">
+                <div class="row">
+                    <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                            <input type="text"
+                                   placeholder="Codigo familia"
+                                   aria-label="Number"
+                                   matInput
+                                   [formControl]="f.codigoFamilia"
+                                   [matAutocomplete]="auto">
+                            <mat-autocomplete #auto="matAutocomplete">
+                              <mat-option *ngFor="let option of filteredOptions | async" [value]="option.codigoFamilia">
+                                {{option.codigoFamilia}}
+                              </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-3" *ngIf="mostrarNameParents">
+                        <div class="md-form m-0">
+                            <input id="namePadre" type="text" class="form-control" formControlName="namePadre" mdbInput
+                                mdbValidate [validateSuccess]="false" [readOnly]="true">
+                            <label for="namePadre">Padre</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3" *ngIf="mostrarNameParents">
+                        <div class="md-form m-0">
+                            <input id="nameMadre" type="text" class="form-control" formControlName="nameMadre" mdbInput
+                                mdbValidate [validateSuccess]="false" [readOnly]="true">
+                            <label for="nameMadre">Madre</label>
+                        </div>
+                    </div>
+                </div>
+                <student-family *ngIf="mostrarFormEstudiantes" [submitted]="submitted" [priceGrades]="priceGrades" [isModoEdit]="isModoEdit"></student-family>
+            </form>
+            <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="saveStudents()">Guardar</button>
+        </div>
+    </div>
+</div>

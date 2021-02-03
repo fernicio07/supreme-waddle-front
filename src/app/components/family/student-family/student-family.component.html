@@ -1,0 +1,205 @@
+<div class="text-right" *ngIf="!isModoEdit">
+    <button mdbBtn type="button" color="blue-grey" class="dashed-button" mdbWavesEffect (click)="addStudent(false)">
+        <mdb-icon fas icon="plus"></mdb-icon>
+        Agregar Hermana
+    </button>
+</div>
+<div class="text-left" *ngIf="isModoEdit">
+    <button mdbBtn type="button" color="blue-grey" class="dashed-button" class="mx-0" mdbWavesEffect (click)="addStudent(true)">
+        <mdb-icon fas icon="plus"></mdb-icon>
+        Agregar Hermana Nueva
+    </button>
+</div>
+<form [formGroup]="familyStudentForm">
+    <div *ngFor="let item of listStudent; let i = index">            
+        <div class="row">
+            <div class="col-md-3 mr-auto">
+                <h3>Estudiante  #{{ i + 1 }}</h3>
+            </div>
+            <div class="col-md-3 ml-auto text-right" *ngIf="isModoEdit">
+                <button type="button" mdbBtn mdbWavesEffect color="danger" rounded="true"  class="my-0" (click)="removeStudentFromEdit(i)">Eliminar Hermana</button>
+            </div>
+            <div class="col-md-3 ml-auto text-right" *ngIf="i > 0 && !isModoEdit">
+                <button type="button" mdbBtn mdbWavesEffect color="danger" rounded="true"  class="my-0" (click)="removeStudent(i)">Eliminar Hermana</button>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <span>Grado</span>
+                <div class="md-form mt-1">
+                    <select [id]="item['students'+ posicionesControl[i]][0].label" class="browser-default custom-select" [name]="item['students'+ posicionesControl[i]][0].label"
+                        [formControlName]="item['students'+ posicionesControl[i]][0].label" mdbValidate [validateSuccess]="false" [validateError]="false" (ngModelChange)="cambioGrado($event, posicionesControl[i])">
+                        <option [value]="item._id" *ngFor="let item of priceGrades" >{{item.name}}</option>
+                    </select>                    
+                    <mdb-error *ngIf="submitted && validateControlErrors('gradeStudent', posicionesControl[i]) && validateControlInvalid('gradeStudent', posicionesControl[i])">Requerido</mdb-error>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="md-form">
+                    <input [id]="item['students'+ posicionesControl[i]][1].label" [name]="item['students'+ posicionesControl[i]][1].label" type="text" class="form-control" [formControlName]="item['students'+ posicionesControl[i]][1].label" mdbInput mdbValidate
+                        [validateSuccess]="false">
+                    <label [for]="item['students'+ posicionesControl[i]][1].label">Nombre</label>
+                    <mdb-error *ngIf="submitted && validateControlErrors('nameStudent', posicionesControl[i]) && validateControlInvalid('nameStudent',posicionesControl[i])">Requerido</mdb-error>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="md-form">
+                    <input [id]="item['students'+ posicionesControl[i]][2].label" [name]="item['students'+ posicionesControl[i]][2].label" type="text" class="form-control" [formControlName]="item['students'+ posicionesControl[i]][2].label" mdbInput
+                        mdbValidate [validateSuccess]="false">
+                    <label [for]="item['students'+ posicionesControl[i]][2].label">Apellidos</label>
+                    <mdb-error *ngIf="submitted && validateControlErrors('lastNameStudent', posicionesControl[i]) && validateControlInvalid('lastNameStudent', posicionesControl[i])">Requerido</mdb-error>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="md-form">
+                    <div class="">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Fecha de nacimiento</mat-label>
+                            <input matInput [matDatepicker]="picker1" [formControlName]="item['students'+ posicionesControl[i]][3].label" 
+                                (dateInput)="addEvent('input', $event, item['students'+ posicionesControl[i]][3].label)" placeholder="MM/DD/YYYY">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>                 
+                    </div>
+                    <mdb-error *ngIf="submitted && validateControlErrors('birthdayDateStudent', posicionesControl[i]) && validateControlInvalid('birthdayDateStudent', posicionesControl[i])">Requerido
+                    </mdb-error>
+                </div>
+            </div>
+        </div>
+        <div class="row">            
+            <div class="col-md-3">
+                <div class="md-form">
+                    <input [id]="item['students'+ posicionesControl[i]][4].label" [name]="item['students'+ posicionesControl[i]][4].label" type="text" class="form-control" [formControlName]="item['students'+ posicionesControl[i]][4].label"
+                        mdbInput mdbValidate [validateSuccess]="false">
+                    <label [for]="item['students'+ posicionesControl[i]][4].label">Lugar de nacimiento</label>
+                    <mdb-error *ngIf="submitted && validateControlErrors('birthdayPlaceStudent', posicionesControl[i]) && validateControlInvalid('birthdayPlaceStudent', posicionesControl[i])">Requerido
+                    </mdb-error>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="md-form">
+                    <input [id]="item['students'+ posicionesControl[i]][5].label" [name]="item['students'+ posicionesControl[i]][5].label" type="text" class="form-control" [formControlName]="item['students'+ posicionesControl[i]][5].label"
+                        mdbInput mdbValidate [validateSuccess]="false">
+                    <label [for]="item['students'+ posicionesControl[i]][5].label">Ciudadanía</label>
+                    <mdb-error *ngIf="submitted && validateControlErrors('ciudadaniaStudent', posicionesControl[i]) && validateControlInvalid('ciudadaniaStudent', posicionesControl[i])">Requerido
+                    </mdb-error>
+                </div>
+            </div>
+            <!-- <div class="col-md-3">
+                <div class="md-form">
+                    <input [id]="item['students'+ posicionesControl[i]][6].label" [name]="item['students'+ posicionesControl[i]][6].label" type="text" 
+                        class="form-control" [formControlName]="item['students'+ posicionesControl[i]][6].label" mdbInput mdbValidate [validateSuccess]="false">
+                    <label [for]="item['students'+ posicionesControl[i]][6].label">Numero de Teléfono </label>
+                    <mdb-error *ngIf="submitted && validateControlErrors('numberPhoneStudent', posicionesControl[i]) && validateControlInvalid('numberPhoneStudent', posicionesControl[i])">Requerido
+                    </mdb-error>
+                </div>
+            </div> -->
+            <div class="col-md-3">
+                <div class="md-form">
+                    <input [id]="item['students'+ posicionesControl[i]][6].label" [name]="item['students'+ posicionesControl[i]][6].label" type="text" (ngModelChange)="cambio($event, item['students'+ posicionesControl[i]][6].label)"
+                        class="form-control" [formControlName]="item['students'+ posicionesControl[i]][6].label" mdbInput mdbValidate [validateSuccess]="false" appSeguroSocialMask>
+                    <label [for]="item['students'+ posicionesControl[i]][6].label">Seguro social</label>
+                    <mdb-error *ngIf="submitted && validateControlErrors('insuranceSocialStudent', posicionesControl[i]) && validateControlInvalid('insuranceSocialStudent', posicionesControl[i])">Requerido
+                    </mdb-error>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <span>Vive con:</span>
+                <div class="md-form mt-1">
+                    <select [id]="item['students'+ posicionesControl[i]][7].label" [name]="item['students'+ posicionesControl[i]][7].label" 
+                        class="browser-default custom-select" [name]="item['students'+ posicionesControl[i]][7].label"
+                        [formControlName]="item['students'+ posicionesControl[i]][7].label" mdbValidate [validateSuccess]="false">
+                        <option value="dad">Padre</option>
+                        <option value="mom">Madre</option>
+                        <option value="both">Ambos</option>
+                        <option value="guardian">Encargado</option>
+                    </select>
+                    <mdb-error *ngIf="submitted && validateControlErrors('livewithStudent', posicionesControl[i]) && validateControlInvalid('livewithStudent', posicionesControl[i])">Requerido</mdb-error>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <span>Hija de maestro</span>
+                <div class="md-form mt-1">
+                    <select [id]="item['students'+ posicionesControl[i]][8].label" class="browser-default custom-select" [name]="item['students'+ posicionesControl[i]][8].label"
+                        [formControlName]="item['students'+ posicionesControl[i]][8].label" mdbValidate [validateSuccess]="false" (ngModelChange)="modelChanged($event, posicionesControl[i])">
+                        <option [ngValue]="true">Si</option>
+                        <option [ngValue]="false">No</option>
+                    </select>
+                    <mdb-error *ngIf="submitted && validateControlErrors('hijoMaestroStudent', posicionesControl[i]) && validateControlInvalid('hijoMaestroStudent', posicionesControl[i])">Requerido</mdb-error>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h1 class="text-center">Cantidad Estudiante</h1>
+            <div class="row">
+                <div class="col">
+                    <div class="md-form">
+                        <input [id]="item['students'+ posicionesControl[i]][9].label" [name]="item['students'+ posicionesControl[i]][9].label" type="text" 
+                            class="form-control" [formControlName]="item['students'+ posicionesControl[i]][9].label" mdbInput mdbValidate [validateSuccess]="false">
+                        <label [for]="item['students'+ posicionesControl[i]][9].label">Instrucción Anual</label>
+                        <mdb-error *ngIf="submitted && validateControlErrors('instruccionAnualStudent', posicionesControl[i]) && validateControlInvalid('instruccionAnualStudent', posicionesControl[i])">Requerido
+                        </mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input [id]="item['students'+ posicionesControl[i]][10].label" [name]="item['students'+ posicionesControl[i]][10].label" type="text" pattern="^([1-9]|10)$"
+                            class="form-control" [formControlName]="item['students'+ posicionesControl[i]][10].label" mdbInput mdbValidate [validateSuccess]="false" (ngModelChange)="obtenerInstruccionMensual($event, posicionesControl[i])">
+                        <label [for]="item['students'+ posicionesControl[i]][10].label">Meses</label>
+                        <mdb-error *ngIf="submitted && validateControlErrors('meses', posicionesControl[i]) && validateControlInvalid('meses', posicionesControl[i])">Requerido
+                        </mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input [id]="item['students'+ posicionesControl[i]][11].label" [name]="item['students'+ posicionesControl[i]][11].label" type="text" 
+                            class="form-control" [formControlName]="item['students'+ posicionesControl[i]][11].label" mdbInput mdbValidate [validateSuccess]="false" [readOnly]="true">
+                        <label [for]="item['students'+ posicionesControl[i]][11].label">Instrucción Mensual</label>
+                        <mdb-error *ngIf="submitted && validateControlErrors('instruccionMensualStudent', posicionesControl[i]) && validateControlInvalid('instruccionMensualStudent', posicionesControl[i])">Requerido
+                        </mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input [id]="item['students'+ posicionesControl[i]][12].label" [name]="item['students'+ posicionesControl[i]][12].label" type="text" 
+                            class="form-control" [formControlName]="item['students'+ posicionesControl[i]][12].label" mdbInput mdbValidate [validateSuccess]="false">
+                        <label [for]="item['students'+ posicionesControl[i]][12].label">Matricula</label>
+                        <mdb-error *ngIf="submitted && validateControlErrors('matriculaStudent', posicionesControl[i]) && validateControlInvalid('matriculaStudent', posicionesControl[i])">Requerido
+                        </mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input [id]="item['students'+ posicionesControl[i]][13].label" [name]="item['students'+ posicionesControl[i]][13].label" type="text" 
+                            class="form-control" [formControlName]="item['students'+ posicionesControl[i]][13].label" mdbInput mdbValidate [validateSuccess]="false">
+                        <label [for]="item['students'+ posicionesControl[i]][13].label">Seguro</label>
+                        <mdb-error *ngIf="submitted && validateControlErrors('seguroStudent', posicionesControl[i]) && validateControlInvalid('seguroStudent', posicionesControl[i])">Requerido
+                        </mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input [id]="item['students'+ posicionesControl[i]][14].label" [name]="item['students'+ posicionesControl[i]][14].label" type="text" 
+                            class="form-control" [formControlName]="item['students'+ posicionesControl[i]][14].label" mdbInput mdbValidate [validateSuccess]="false">
+                        <label [for]="item['students'+ posicionesControl[i]][14].label">Cuido</label>
+                        <mdb-error *ngIf="submitted && validateControlErrors('cuidoStudent', posicionesControl[i]) && validateControlInvalid('cuidoStudent', posicionesControl[i])">Requerido
+                        </mdb-error>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="md-form">
+                        <input [id]="item['students'+ posicionesControl[i]][15].label" [name]="item['students'+ posicionesControl[i]][15].label" type="text" 
+                            class="form-control" [formControlName]="item['students'+ posicionesControl[i]][15].label" mdbInput mdbValidate [validateSuccess]="false">
+                        <label [for]="item['students'+ posicionesControl[i]][15].label">Libros digitales</label>
+                        <mdb-error *ngIf="submitted && validateControlErrors('librosDigitalesStudent', posicionesControl[i]) && validateControlInvalid('librosDigitalesStudent', posicionesControl[i])">Requerido
+                        </mdb-error>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

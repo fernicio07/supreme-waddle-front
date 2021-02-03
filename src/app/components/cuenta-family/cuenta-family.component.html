@@ -1,0 +1,200 @@
+<form [formGroup]="cuentaFamilyForm" *ngIf="fromFamily">
+    <div class="row mx-0">
+        <div class="col-md-6">
+            <h1 class="text-center">Cantidades Familia</h1>
+            <div class="row">                
+                <div class="col-md-4">
+                    <div class="md-form">
+                        <input id="donativoAnual" name="donativoAnual" type="text" class="form-control"
+                            formControlName="donativoAnual" mdbInput mdbValidate [validateSuccess]="false" NumbersOnly
+                            [allowDecimals]="true">
+                        <label for="donativoAnual">Donativo Anual</label>
+                        <mdb-error *ngIf="submitted && f.donativoAnual.errors && f.donativoAnual.invalid">Requerido
+                        </mdb-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="md-form">
+                        <input id="donativoFuturo" name="donativoFuturo" type="text" class="form-control"
+                            formControlName="donativoFuturo" mdbInput mdbValidate [validateSuccess]="false" NumbersOnly
+                            [allowDecimals]="true">
+                        <label for="donativoFuturo">Donativo Futuro</label>
+                        <mdb-error *ngIf="submitted && f.donativoFuturo.errors && f.donativoFuturo.invalid">Requerido
+                        </mdb-error>
+                    </div>
+                </div>
+                <!-- <div class="col-md-4">
+                    <div class="md-form">
+                        <input id="cuido" name="cuido" type="text" class="form-control" formControlName="cuido" mdbInput
+                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                        <label for="cuido">Cuido</label>
+                        <mdb-error *ngIf="submitted && f.cuido.errors && f.cuido.invalid">Requerido</mdb-error>
+                    </div>
+                </div> -->
+                <div class="col-md-4">
+                    <div class="md-form">
+                        <input id="recargo" name="recargo" type="text" class="form-control" formControlName="recargo" mdbInput
+                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                        <label for="recargo">Recargo</label>
+                        <mdb-error *ngIf="submitted && f.recargo.errors && f.recargo.invalid">Requerido</mdb-error>
+                    </div>
+                </div>
+                <!-- <div class="col-md-4">
+                    <div class="md-form">
+                        <input id="montoLibrosDigitales" name="montoLibrosDigitales" type="text" class="form-control" formControlName="montoLibrosDigitales" mdbInput
+                            mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                        <label for="montoLibrosDigitales">Libros Digitales</label>
+                        <mdb-error *ngIf="submitted && f.montoLibrosDigitales.errors && f.montoLibrosDigitales.invalid">Requerido</mdb-error>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h1 class="text-center">Cuotas especiales</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="md-form">
+                        <input id="yearbook" name="yearbook" type="text" class="form-control" formControlName="yearbook"
+                            mdbInput mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                        <label for="yearbook">Anuario</label>
+                        <mdb-error *ngIf="submitted && f.yearbook.errors && f.yearbook.invalid">Requerido</mdb-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="md-form">
+                        <input id="security" name="security" type="text" class="form-control" formControlName="security"
+                            mdbInput mdbValidate [validateSuccess]="false" NumbersOnly [allowDecimals]="true">
+                        <label for="security">Seguridad</label>
+                        <mdb-error *ngIf="submitted && f.security.errors && f.security.invalid">Requerido</mdb-error>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="md-form">
+                        <input id="maintenance" name="maintenance" type="text" class="form-control"
+                            formControlName="maintenance" mdbInput mdbValidate [validateSuccess]="false" NumbersOnly
+                            [allowDecimals]="true">
+                        <label for="maintenance">Mantenimiento</label>
+                        <mdb-error *ngIf="submitted && f.maintenance.errors && f.maintenance.invalid">Requerido
+                        </mdb-error>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="md-form">
+                        <input id="technology" name="technology" type="text" class="form-control"
+                            formControlName="technology" mdbInput mdbValidate [validateSuccess]="false" NumbersOnly
+                            [allowDecimals]="true">
+                        <label for="technology">Tecnología</label>
+                        <mdb-error *ngIf="submitted && f.technology.errors && f.technology.invalid">Requerido
+                        </mdb-error>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-md-12">
+        <form [formGroup]="cuentaStudentForm" *ngIf="cuentaStudentForm">
+            <h1 class="text-center" *ngIf="fromFamily">Cantidades Estudiantes</h1>
+            <div *ngFor="let item of listStudent; let i = index">
+                <strong>Estudiante: <span class="text-uppercase">{{students[i].name}}</span> | grado: {{students[i].grade.name}}</strong>
+                <div class="row">
+                    <div class="col">
+                        <div class="md-form">
+                            <input [id]="item['students'+ i][0].label" [name]="item['students'+ i][0].label" type="text"
+                                class="form-control" [formControlName]="item['students'+ i][0].label" mdbInput
+                                mdbValidate [validateSuccess]="false" [readOnly]="fromFamily">
+                            <label [for]="item['students'+ i][0].label">Instrucción Anual</label>
+                            <!-- <mdb-error
+                                *ngIf="submitted && validateControlErrors('instruccionAnualStudent', i) && validateControlInvalid('instruccionAnualStudent', i)">
+                                Requerido</mdb-error> -->
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input [id]="item['students'+ i][1].label" [name]="item['students'+ i][1].label" type="text"
+                                class="form-control" [formControlName]="item['students'+ i][1].label" mdbInput
+                                mdbValidate [validateSuccess]="false" [readOnly]="fromFamily" (ngModelChange)="obtenerInstruccionMensual($event)">
+                            <label [for]="item['students'+ i][1].label">Meses</label>
+                            <!-- <mdb-error
+                                *ngIf="submitted && validateControlErrors('meses', i) && validateControlInvalid('meses', i)">
+                                Requerido</mdb-error> -->
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input [id]="item['students'+ i][2].label" [name]="item['students'+ i][2].label" type="text"
+                                class="form-control" [formControlName]="item['students'+ i][2].label" mdbInput
+                                mdbValidate [validateSuccess]="false" [readOnly]="fromFamily">
+                            <label [for]="item['students'+ i][2].label">Instrucción Mensual</label>
+                            <!-- <mdb-error
+                                *ngIf="submitted && validateControlErrors('instruccionStudent', i) && validateControlInvalid('instruccionStudent', i)">
+                                Requerido</mdb-error> -->
+                        </div>
+                    </div>
+                
+                    <div class="col">
+                        <div class="md-form">
+                            <input [id]="item['students'+ i][3].label" [name]="item['students'+ i][3].label" type="text"
+                                class="form-control" [formControlName]="item['students'+ i][3].label" mdbInput
+                                mdbValidate [validateSuccess]="false" [readOnly]="fromFamily">
+                            <label [for]="item['students'+ i][3].label">Matricula</label>
+                            <!-- <mdb-error
+                                *ngIf="submitted && validateControlErrors('matriculaStudent', i) && validateControlInvalid('matriculaStudent', i)">
+                                Requerido</mdb-error> -->
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input [id]="item['students'+ i][4].label" [name]="item['students'+ i][4].label" type="text"
+                                class="form-control" [formControlName]="item['students'+ i][4].label" mdbInput
+                                mdbValidate [validateSuccess]="false" [readOnly]="fromFamily">
+                            <label [for]="item['students'+ i][4].label">Seguro</label>
+                            <!-- <mdb-error
+                                *ngIf="submitted && validateControlErrors('seguroStudent', i) && validateControlInvalid('seguroStudent', i)">
+                                Requerido</mdb-error> -->
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input [id]="item['students'+ i][5].label" [name]="item['students'+ i][5].label" type="text"
+                                class="form-control" [formControlName]="item['students'+ i][5].label" mdbInput
+                                mdbValidate [validateSuccess]="false" [readOnly]="fromFamily">
+                            <label [for]="item['students'+ i][5].label">Graduación</label>
+                            <!-- <mdb-error
+                                *ngIf="submitted && validateControlErrors('graduacionStudent', i) && validateControlInvalid('graduacionStudent', i)">
+                                Requerido</mdb-error> -->
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input [id]="item['students'+ i][6].label" [name]="item['students'+ i][6].label" type="text"
+                                class="form-control" [formControlName]="item['students'+ i][6].label" mdbInput
+                                mdbValidate [validateSuccess]="false" [readOnly]="fromFamily">
+                            <label [for]="item['students'+ i][6].label">Cuido</label>
+                            <!-- <mdb-error
+                                *ngIf="submitted && validateControlErrors('graduacionStudent', i) && validateControlInvalid('graduacionStudent', i)">
+                                Requerido</mdb-error> -->
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form">
+                            <input [id]="item['students'+ i][7].label" [name]="item['students'+ i][7].label" type="text"
+                                class="form-control" [formControlName]="item['students'+ i][7].label" mdbInput
+                                mdbValidate [validateSuccess]="false" [readOnly]="fromFamily">
+                            <label [for]="item['students'+ i][7].label">Libros digitales</label>
+                            <!-- <mdb-error
+                                *ngIf="submitted && validateControlErrors('graduacionStudent', i) && validateControlInvalid('graduacionStudent', i)">
+                                Requerido</mdb-error> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <button type="button" mdbBtn color="primary" mdbWavesEffect (click)="actualizarCuenta()" *ngIf="!fromFamily">Actualizar</button>
+</div>

@@ -1,0 +1,99 @@
+<form [formGroup]="familyDadForm">
+    <h1 class="mb-3">Padre</h1>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="nameDad" type="text" class="form-control" formControlName="nameDad" mdbInput mdbValidate
+                    [validateSuccess]="false">
+                <label for="nameDad">Nombre</label>
+                <!-- <mdb-error *ngIf="submitted && f.nameDad.errors && f.nameDad.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="lastNameDad" type="text" class="form-control" formControlName="lastNameDad" mdbInput mdbValidate
+                    [validateSuccess]="false">
+                <label for="lastNameDad">Apellidos</label>
+                <!-- <mdb-error *ngIf="submitted && f.lastNameDad.errors && f.lastNameDad.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="occupationDad" type="text" class="form-control" formControlName="occupationDad" mdbInput
+                    mdbValidate [validateSuccess]="false">
+                <label for="occupationDad">Ocupación</label>
+                <!-- <mdb-error *ngIf="submitted && f.occupationDad.errors && f.occupationDad.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="companyDad" type="text" class="form-control" formControlName="companyDad" mdbInput mdbValidate
+                    [validateSuccess]="false">
+                <label for="companyDad">Empresa</label>
+                <!-- <mdb-error *ngIf="submitted && f.companyDad.errors && f.companyDad.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">        
+        
+        <!-- <div class="col-md-3">
+            <div class="md-form">
+                <textarea type="text" id="physicalAddressDad" class="md-textarea md-textarea-auto form-control" cols="1" rows="1" mdbInput formControlName="physicalAddressDad"></textarea>
+                <label for="physicalAddressDad">Dirección Pago</label>
+                <mdb-error *ngIf="submitted && f.physicalAddressDad.errors && f.physicalAddressDad.invalid">Requerido
+                </mdb-error>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <textarea type="text" id="mailingAddressDad" class="md-textarea md-textarea-auto form-control" rows="1" mdbInput formControlName="mailingAddressDad"></textarea>
+                <label for="mailingAddressDad">Dirección Circular</label>
+                <mdb-error *ngIf="submitted && f.mailingAddressDad.errors && f.mailingAddressDad.invalid">Requerido
+                </mdb-error>
+            </div>
+        </div> -->
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="homePhoneDad" type="text" class="form-control" formControlName="homePhoneDad" mdbInput
+                    mdbValidate [validateSuccess]="false" appPhoneMask>
+                <label for="homePhoneDad">Teléfono de Casa</label>
+                <!-- <mdb-error *ngIf="submitted && f.homePhoneDad.errors && f.homePhoneDad.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="workPhoneDad" type="text" class="form-control" formControlName="workPhoneDad" mdbInput
+                    mdbValidate [validateSuccess]="false" appPhoneMask>
+                <label for="workPhoneDad">Teléfono de Trabajo</label>
+                <!-- <mdb-error *ngIf="submitted && f.workPhoneDad.errors && f.workPhoneDad.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="mobilePhoneDad" type="text" class="form-control" formControlName="mobilePhoneDad" mdbInput
+                    mdbValidate [validateSuccess]="false" appPhoneMask>
+                <label for="mobilePhoneDad">Teléfono Móvil</label>
+                <!-- <mdb-error *ngIf="submitted && f.mobilePhoneDad.errors && f.mobilePhoneDad.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="emailDad" type="email" class="form-control c-email" formControlName="emailDad" mdbInput mdbValidate
+                    [validateSuccess]="false">
+                <label for="emailDad">Correo Electrónico</label>
+                <!-- <mdb-error *ngIf="submitted && f.emailDad.errors && f.emailDad.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-md-3">
+            <div class="md-form">
+                <input id="hobbyDad" type="text" class="form-control" formControlName="hobbyDad" mdbInput mdbValidate
+                    [validateSuccess]="false">
+                <label for="hobbyDad">Pasatiempo favorito</label>
+                <!-- <mdb-error *ngIf="submitted && f.hobbyDad.errors && f.hobbyDad.invalid">Requerido</mdb-error> -->
+            </div>
+        </div>
+    </div>
+</form>

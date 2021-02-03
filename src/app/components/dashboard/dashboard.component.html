@@ -1,0 +1,117 @@
+<div class="wrapper">
+    <aside class="menu-sidebar">
+        <div class="logo border-bottom">
+            <a href="javascript:void(0)">
+                <img src="../../../assets/img/logo.png" alt="Logo">
+            </a>
+        </div>
+        <div class="menu-sidebar-content">
+            <div class="navbar-sidebar">
+                <ul>
+                    <li>
+                        <a mdbWavesEffect class="" [routerLink]="['/dashboard', { outlets: { 'procesoDashboard': ['dashboard'] } }]" [routerLinkActive]="'active'">
+                            <mdb-icon fas icon="home" class="mr-1"></mdb-icon>
+                            CPN
+                        </a>
+                    </li>
+                    <li>
+                        <mat-accordion class="example-headers-align" multi>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mdb-icon fas icon="users" class="mr-1"></mdb-icon>
+                                    Familia
+                                </mat-expansion-panel-header>        
+                                <a mdbWavesEffect class="" [routerLink]="['/dashboard', { outlets: { 'procesoDashboard': ['family'] } }]" [routerLinkActive]="'active'">
+                                    <mdb-icon fas icon="list-ol" class="mr-1"></mdb-icon>
+                                    Listado
+                                </a>
+                                <a mdbWavesEffect class="" >
+                                    <mdb-icon fas icon="file-download" class="mr-1"></mdb-icon>
+                                    Reportes
+                                </a>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </li>
+                    <li>
+                        <mat-accordion class="example-headers-align" multi>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mdb-icon fas icon="list-alt" class="mr-1"></mdb-icon>
+                                    Estudiantes
+                                </mat-expansion-panel-header>        
+                                <a mdbWavesEffect class="" [routerLink]="['/dashboard', { outlets: { 'procesoDashboard': ['student'] } }]" [routerLinkActive]="'active'">
+                                    <mdb-icon fas icon="list-ol" class="mr-1"></mdb-icon>
+                                    Listado Est. Activas
+                                </a>
+                                <a mdbWavesEffect class="" [routerLink]="['/dashboard', { outlets: { 'procesoDashboard': ['archivar-student'] } }]" [routerLinkActive]="'active'">
+                                    
+                                    <mdb-icon far icon="folder-open" class="mr-1"></mdb-icon>
+                                    Est. De Baja
+                                </a>
+                                <a mdbWavesEffect class="" >
+                                    <mdb-icon fas icon="file-download" class="mr-1"></mdb-icon>
+                                    Reportes Est.
+                                </a>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </li>
+                    <li>
+                        <a mdbWavesEffect class="" [routerLink]="['/dashboard', { outlets: { 'procesoDashboard': ['pagos'] } }]" [routerLinkActive]="'active'">
+                            <mdb-icon fas icon="hand-holding-usd" class="mr-1"></mdb-icon>
+                            Pagos
+                        </a>
+                    </li>
+                    <li>
+                        <a mdbWavesEffect class="" [routerLink]="['/dashboard', { outlets: { 'procesoDashboard': ['depositos'] } }]" [routerLinkActive]="'active'">
+                            <mdb-icon fas icon="th-large" class="mr-1"></mdb-icon>
+                            Depositos
+                        </a>
+                    </li>
+                    <li>                        
+                        <a mdbWavesEffect class="" [routerLink]="['/dashboard', { outlets: { 'procesoDashboard': ['admission-fee'] } }]" [routerLinkActive]="'active'">
+                            <mdb-icon far icon="address-card" class="mr-1"></mdb-icon>
+                            Indicar Matricula/Cuotas
+                        </a>
+                    </li>
+                    <li>
+                        <a mdbWavesEffect class="" [routerLink]="['/dashboard', { outlets: { 'procesoDashboard': ['graduation-fee'] } }]" [routerLinkActive]="'active'">
+                            <mdb-icon fas icon="graduation-cap" class="mr-1"></mdb-icon>
+                            Indicar Graduación
+                        </a>
+                    </li>
+                    <li>
+                        <mat-accordion class="example-headers-align" multi>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mdb-icon fas icon="chalkboard-teacher" class="mr-1"></mdb-icon>
+                                    Principio de Curso
+                                </mat-expansion-panel-header>        
+                                <a mdbWavesEffect class="" [routerLink]="['/dashboard', { outlets: { 'procesoDashboard': ['priceGrade'] } }]" [routerLinkActive]="'active'">
+                                    <mdb-icon fas icon="layer-group" class="mr-1"></mdb-icon>
+                                    Grados
+                                </a>
+                                <a mdbWavesEffect class="" [routerLink]="['/dashboard', { outlets: { 'procesoDashboard': ['donation-fee'] } }]" [routerLinkActive]="'active'">
+                                    <mdb-icon fas icon="allergies" class="mr-1"></mdb-icon>
+                                    Donativo
+                                </a>
+                                <a mdbWavesEffect class="" (click)="openModalStartAnio()">
+                                    <mdb-icon fas icon="clock" class="mr-1"></mdb-icon>
+                                    Comenzar Proceso
+                                </a>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <div class="page-container">
+        <app-navbar></app-navbar>
+        <div class="main-content">
+            <div class="px-4 pb-4">
+                <router-outlet name="procesoDashboard"></router-outlet>
+                
+            </div>            
+        </div>
+    </div>
+</div>

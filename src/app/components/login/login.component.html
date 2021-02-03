@@ -1,0 +1,38 @@
+<div class="view intro intro-2">
+    <div class="mask flex-center rgba-black-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto">                    
+                    <mdb-card class="wow fadeIn">
+                        <p class="h5 card-header info-color white-text text-center py-4">
+                            <strong>Sign in</strong>
+                        </p>
+                        <!--Card content-->
+                        <mdb-card-body>
+                            <form #loginForm="ngForm" (ngSubmit)="loginUser()">
+                                <div class="md-form form-sm">
+                                    <mdb-icon fas icon="user" class="prefix"></mdb-icon>
+                                    <input mdbInput mdbValidate type="text" id="userName" name="userName" class="form-control" #userName="ngModel" 
+                                        [(ngModel)]="loginUserData.userName" required [validateSuccess]="false">
+                                    <label for="userName">Usuario</label>
+                                    <mdb-error *ngIf="userName.invalid && (userName.dirty || userName.touched)">Usuario Incorrecto</mdb-error>
+                                </div>
+                                <div class="md-form form-sm my-5">
+                                    <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
+                                    <input mdbInput mdbValidate type="password" id="userPassword" name="userPassword" class="form-control" #userPassword="ngModel" 
+                                        [(ngModel)]="loginUserData.password" required [validateSuccess]="false">
+                                    <label for="userPassword">Password</label>
+                                    <mdb-error *ngIf="userPassword.invalid && (userPassword.dirty || userPassword.touched)">Password Incorrecto</mdb-error>
+                                </div>
+                                <p class="text-danger">
+                                    {{ messageError }}
+                                </p>
+                                <button mdbBtn mdbWavesEffect color="info" block="true" class="my-4" type="submit" [disabled]="!loginForm.form.valid">Sign in</button>
+                            </form>
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+
+
+<div class="modal-content">
+    <div class="modal-body">
+        <div class="md-form form-sm ">
+            <mdb-icon fas icon="lock" class="prefix"></mdb-icon>
+            <input mdbInput mdbValidate type="password" id="userPassword" name="userPassword" class="form-control" #userPassword="ngModel" 
+                [(ngModel)]="password" required [validateSuccess]="false">
+            <label for="userPassword">Password</label>
+            <mdb-error *ngIf="userPassword.invalid && (userPassword.dirty || userPassword.touched)">Password Incorrecto</mdb-error>
+        </div>
+        <p class="text-danger m-0">
+            {{ messageError }}
+        </p>
+    </div>
+
+    <div class="modal-footer border-0">
+        <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="modalRef.hide()" mdbWavesEffect>Cerrar</button>
+        <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect (click)="guardar()">Enviar</button>
+    </div>
+</div>

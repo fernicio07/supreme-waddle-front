@@ -1,0 +1,222 @@
+<div class="row mt-3">
+    <div class="col-md-12">
+        <mdb-card class="narrower card card-cascade">
+            <div class="view view-cascade gradient-card-header w-25 mx-auto">
+                <h2 class="h2-responsive mb-0">
+                    Depositos
+                </h2>
+            </div>
+            <!--Card content-->
+            <mdb-card-body>
+                <mat-tab-group>
+                    <mat-tab label="Pagos No Depositados">                        
+                        <div class="row m-0 pt-3">
+                            <div class="col-md-2">
+                                <span>Tipo de pago</span>
+                                <div class="md-form mt-1">
+                                    <select id="tipoDePago" class="browser-default custom-select" name="tipoDePago" [(ngModel)]="tipoDePago" 
+                                        (ngModelChange)="getPagosRealizados($event)">
+                                        <option value="CH-EF">Cheque/Efectivo</option>
+                                        <option value="ATH">ATH</option>
+                                        <!-- <option value="CH">Cheque</option> -->
+                                        <option value="V-M">Visa/MasterCard</option>
+                                        <!-- <option value="M">MasterCard</option> -->
+                                        <option value="AE">American Express</option>
+                                        <option value="VME">Visa/MasterCard Elect</option>
+                                        <option value="AEE">American Express Elect</option>
+                                        <option value="VMPA">Visa/MasterCard Pago Automático</option>
+                                        <option value="AEPA">American Express Pago Automático</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button type="button" mdbBtn color="primary" class="dashed-button" mdbWavesEffect (click)="openModalCrearDeposito()">
+                                <mdb-icon fas icon="plus"></mdb-icon>
+                                Crear Deposito
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table mdbTable #mdbTablePagos="mdbTable" striped="true">
+                                <caption></caption>
+                                <thead>
+                                    <tr class="text-center">
+                                        <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+                                    </tr>
+                                </thead>
+                                <tbody #row>
+                                    <tr mdbTableCol *ngFor="let el of pagosRealizados; let i = index" class="text-center">
+                                        <th *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex"
+                                            scope="row">
+                                            <div>
+                                                <mat-checkbox [checked]="true" class="example-margin" (click)="registroSeleccionado(i)" *ngIf="el.seleccionado"></mat-checkbox>
+                                                <mat-checkbox [checked]="false" class="example-margin" (click)="registroSeleccionado(i)" *ngIf="!el.seleccionado"></mat-checkbox>
+                                            </div>
+                                        </th>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>{{el.codigoFamilia}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>{{el.tipoPago | setTipoPago}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>{{el.fechaCreoPago | setFecha}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>{{el.totalPago | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>${{el.montoTotalMensualidadGradoStudentsPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>${{el.montoDonationFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>${{el.montoTotalCuidoPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>${{el.montoGraduationFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>${{el.montoTotalMatriculaStudentsPagado | number:'1.2-2'}}</strong>
+                                        </td>                                   
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>${{el.montoTotalSeguroStudentsPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>${{el.montoSecurityFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>${{el.montoTechnologyFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>${{el.montoMaintenanceFeePagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>${{el.montoYearbookPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>${{el.montoLibrosDigitalesPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <strong>${{el.montoRecargoPagado | number:'1.2-2'}}</strong>
+                                        </td>
+                                        <td *ngIf="i+1 >= mdbTablePaginationPagos.firstItemIndex && i < mdbTablePaginationPagos.lastItemIndex">
+                                            <a href="javascript:void(0)" mdbTooltip="Editar" class="text-action mr-2" (click)="modalEditarPago(el)">
+                                                <mdb-icon far icon="edit"></mdb-icon>
+                                            </a>
+                                            <a href="javascript:void(0)" mdbTooltip="Eliminar" class="text-action" (click)="eliminarPago(el)">
+                                                <mdb-icon far icon="trash-alt"></mdb-icon>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <td colspan="4"><strong>Totales:</strong></td>
+                                        <td><strong>${{sumaTotalPago | number:'1.2-2'}}</strong></td>
+                                        <td><strong>${{sumaMensualidadInstruccionPagado | number:'1.2-2'}}</strong></td>
+                                        <td><strong>${{sumaMontoDonationFeePagado | number:'1.2-2'}}</strong></td>
+                                        <td><strong>${{sumaMontoTotalCuidoPagado | number:'1.2-2'}}</strong></td>
+                                        <td><strong>${{sumaMontoGraduationFeePagado | number:'1.2-2'}}</strong></td>
+                                        <td><strong>${{sumaMontoTotalMatriculaStudentsPagado | number:'1.2-2'}}</strong></td>
+                                        <td><strong>${{sumaMontoTotalSeguroStudentsPagado | number:'1.2-2'}}</strong></td>
+                                        <td><strong>${{sumaMontoSecurityFeePagado | number:'1.2-2'}}</strong></td>
+                                        <td><strong>${{sumaMontoTechnologyFeePagado | number:'1.2-2'}}</strong></td>
+                                        <td><strong>${{sumaMontoMaintenanceFeePagado | number:'1.2-2'}}</strong></td>
+                                        <td><strong>${{sumaMontoYearbookPagado | number:'1.2-2'}}</strong></td>
+                                        <td><strong>${{sumaMontoLibrosDigitalesPagado | number:'1.2-2'}}</strong></td>
+                                        <td><strong>${{sumaMontoRecargoPagado | number:'1.2-2'}}</strong></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="grey lighten-5 w-100">
+                                    <tr>
+                                        <td colspan="18">
+                                            <mdb-table-pagination #mdbTablePaginationPagos [tableEl]="mdbTablePagos" paginationAlign=""
+                                                [searchDataSource]="pagosRealizados"></mdb-table-pagination>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Lista Depositos">
+                        <table mdbTable #mdbTableDeposito="mdbTable" striped="true">
+                            <caption></caption>
+                            <thead>
+                                <tr class="text-center">
+                                    <th *ngFor="let head of headElementsDeposito" scope="col">{{head}} </th>
+                                </tr>
+                            </thead>
+                            <tbody #row>
+                                <tr mdbTableCol *ngFor="let el of depositos; let i = index "  class="text-center">
+                                    <th *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex"
+                                        scope="row">
+                                        <strong>{{el.numeroDeposito}}</strong>
+                                    </th>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalTotalPago | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalMensualidad | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalDonativo | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalCuido | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalMatricula | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalGraduacion | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalSeguro | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalSeguridad | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalTecnologia | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalMantenimiento | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalAnuario | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalLibrosDigitales | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <strong>${{el.totalRecargos | number:'1.2-2'}}</strong>
+                                    </td>
+                                    <td *ngIf="i+1 >= mdbTablePaginationDeposito.firstItemIndex && i < mdbTablePaginationDeposito.lastItemIndex">
+                                        <a href="javascript:void(0)" mdbTooltip="Eliminar" class="text-action mr-2" (click)="eliminarDeposito(el)">
+                                            <mdb-icon far icon="trash-alt"></mdb-icon>
+                                        </a>
+                                        <a href="javascript:void(0)" mdbTooltip="Descargar" class="text-action mr-2" (click)="descargarDeposito(el)">                                            
+                                            <mdb-icon fas icon="download"></mdb-icon>
+                                        </a>
+                                        <a href="javascript:void(0)" mdbTooltip="Editar" class="text-action mr-2" (click)="editarDeposito(el)">
+                                            <mdb-icon far icon="edit"></mdb-icon>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="grey lighten-5 w-100">
+                                <tr>
+                                    <td colspan="15">
+                                        <mdb-table-pagination #mdbTablePaginationDeposito [tableEl]="mdbTableDeposito" paginationAlign=""
+                                            [searchDataSource]="depositos" ></mdb-table-pagination>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </mat-tab>
+                </mat-tab-group>
+            </mdb-card-body>
+        </mdb-card>
+    </div>
+</div>
