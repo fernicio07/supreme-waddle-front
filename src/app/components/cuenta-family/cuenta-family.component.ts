@@ -130,7 +130,7 @@ export class CuentaFamilyComponent implements OnInit {
     });
   }
 
-  public actualizarCuenta(planPagoDonaciones?: any): void {
+  public actualizarCuenta(planPagoDonaciones?: any, isFamiliy?: boolean): void {
     if (this.ultimoEstadoCuentaFamily) {
       if(this.family.students.length > 0) this.getDatosFormCuentaStudents();
       if(this.fromFamily) this.getDatosFormCuenta();        
@@ -147,6 +147,7 @@ export class CuentaFamilyComponent implements OnInit {
       this.cuentaFamilyService.updateEstadoCuentaFamily(this.family).subscribe(
         response => {
           if(response.status) {
+            if(isFamiliy) return;
             Swal.fire({
               title: 'Exitoso!',
               text: response.messagge,
