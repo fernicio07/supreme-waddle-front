@@ -63,7 +63,7 @@ export class CuentaFamilyComponent implements OnInit {
   get f() {
 		return this.cuentaFamilyForm.controls;
   }
-  
+
   get x() {
     return this.cuentaStudentForm.controls;
   }
@@ -105,7 +105,7 @@ export class CuentaFamilyComponent implements OnInit {
             confirmButtonText: 'Aceptar'
           });
         }
-        
+
 
         console.log(response);
       },
@@ -133,7 +133,7 @@ export class CuentaFamilyComponent implements OnInit {
   public actualizarCuenta(planPagoDonaciones?: any, isFamiliy?: boolean): void {
     if (this.ultimoEstadoCuentaFamily) {
       if(this.family.students.length > 0) this.getDatosFormCuentaStudents();
-      if(this.fromFamily) this.getDatosFormCuenta();        
+      if(this.fromFamily) this.getDatosFormCuenta();
       this.crearTotales();
       // crear totalMensualidadDonativo para EC
       let totalMensualidadDonativo = 0;
@@ -190,22 +190,22 @@ export class CuentaFamilyComponent implements OnInit {
         element.graduationFee = +this.cuentaStudentForm.value['graduacionStudent' + index].replace(',', '');
         this.ultimoEstadoCuentaFamily.totalGraduationFee += element.graduationFee;
       }
-      
+
       this.ultimoEstadoCuentaFamily.totalMensualidadGradoStudents += element.instruccionStudent;
       this.ultimoEstadoCuentaFamily.totalAnualMensualidadGradoStudents += element.instruccionAnualStudent;
       this.ultimoEstadoCuentaFamily.totalMatriculaStudents += element.matriculaStudent;
       this.ultimoEstadoCuentaFamily.totalSeguroStudents += element.seguroStudent;
       this.ultimoEstadoCuentaFamily.cuido += element.cuidoStudent;
       this.ultimoEstadoCuentaFamily.montoLibrosDigitales += element.librosDigitalesStudent;
-      
+
     });
     console.log(this.family);
   }
 
   // Get valores to form
   private getDatosFormCuenta():void {
-    this.ultimoEstadoCuentaFamily.donativoFuturo = +this.f.donativoFuturo.value;
-    this.ultimoEstadoCuentaFamily.donativoAnual = +this.f.donativoAnual.value;
+    this.ultimoEstadoCuentaFamily.donativoFuturo = +this.f.donativoFuturo.value.replace(',' ,'');
+    this.ultimoEstadoCuentaFamily.donativoAnual = +this.f.donativoAnual.value.replace(',' ,'');
     // this.ultimoEstadoCuentaFamily.cuido = +this.f.cuido.value;
     this.ultimoEstadoCuentaFamily.recargo = +this.f.recargo.value;
     // this.ultimoEstadoCuentaFamily.montoLibrosDigitales = +this.f.montoLibrosDigitales.value;
@@ -224,7 +224,7 @@ export class CuentaFamilyComponent implements OnInit {
     let total = 0;
 
     total += (
-      this.ultimoEstadoCuentaFamily.maintenance + 
+      this.ultimoEstadoCuentaFamily.maintenance +
       this.ultimoEstadoCuentaFamily.security +
       this.ultimoEstadoCuentaFamily.technology +
       this.ultimoEstadoCuentaFamily.yearbook
@@ -236,7 +236,7 @@ export class CuentaFamilyComponent implements OnInit {
     }
     // Estudiantes
     // if(this.fromFamily) {
-      
+
     // } else {
     //   this.ultimoEstadoCuentaFamily.totalAnualMensualidadGradoStudents = this.ultimoEstadoCuentaFamily.totalMensualidadGradoStudents * 10;
     //   this.ultimoEstadoCuentaFamily.totalAdmissionFeeStudents = this.ultimoEstadoCuentaFamily.totalMatriculaStudents + this.ultimoEstadoCuentaFamily.totalSeguroStudents;
@@ -265,8 +265,8 @@ export class CuentaFamilyComponent implements OnInit {
     let arrStudent = []
     arrStudent.push(student);
     this.controlFormStudent = arrStudent;
-    this.listStudent = this.listStudent.concat(arrStudent); 
-    
+    this.listStudent = this.listStudent.concat(arrStudent);
+
     this.addStudentToForm();
   }
 
@@ -318,7 +318,7 @@ export class CuentaFamilyComponent implements OnInit {
       this.cuentaStudentForm.updateValueAndValidity();
       let instruccionAnual = +this.x.instruccionAnualStudent0.value.replace(',', '');
       let instruccionMensual = (instruccionAnual / +event).toFixed(2);
-      this.x.instruccionStudent0.setValue(this.transformDecimal(instruccionMensual));    
+      this.x.instruccionStudent0.setValue(this.transformDecimal(instruccionMensual));
       this.x.instruccionAnualStudent0.setValue(this.transformDecimal(instruccionAnual));
     }
   }
