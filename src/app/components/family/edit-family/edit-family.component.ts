@@ -258,24 +258,8 @@ export class EditFamilyComponent implements OnInit, AfterViewInit {
     this.validarCodigoFamilia(codigoFamilia).subscribe((res) => {
       if(res && codigoFamilia != this.family.codigoFamilia) return this.alertaWarning('Código de familia ya existe.');
 
-      this.setInformacionFamily(this.familyForm.value.formDad.value, this.family.dad, 'Dad');
-      this.setInformacionFamily(this.familyForm.value.formMom.value, this.family.mom, 'Mom');
-      if(this.familyForm.value.formGuardian) {
-        this.familyForm.value.formGuardian.updateValueAndValidity();
-        this.setInformacionFamily(this.familyForm.value.formGuardian.value, this.family.guardian, 'Guardian');
-      }
-      
-      this.family.pagoAutomatico = this.f.pagoAutomatico.value;
-      this.family.addFormGuardian = this.f.addFormGuardian.value;
-      this.family.tipoTarjeta = this.f.tipoTarjeta.value;
-      this.family.planPagoDonaciones = this.f.planPagoDonaciones.value;
-      this.family.cuantoPagaInstruccion = isNaN(+this.f.cuantoPagaInstruccion.value) ? 0 : +this.f.cuantoPagaInstruccion.value;
-      this.family.cuantoPagaDonativo = isNaN(+this.f.cuantoPagaDonativo.value) ? 0 : +this.f.cuantoPagaDonativo.value;
-      this.family.cuantoPagaCuido = isNaN(+this.f.cuantoPagaCuido.value) ? 0 : +this.f.cuantoPagaCuido.value;
-      this.family.codigoFamilia = codigoFamilia;
-
-      // Actualiza la cuenta
-      this.cuentaFamilyComponent.actualizarCuenta(this.family.planPagoDonaciones);
+      this.setValoresFamilia(codigoFamilia);
+      //Actualizar familia
       this.familyService.updateFamily(this.family).subscribe(
         response => {
           if(response.status) {
@@ -294,6 +278,44 @@ export class EditFamilyComponent implements OnInit, AfterViewInit {
         }
       )
     });
+  }
+
+  /**
+   * Metodo que permite SET los valores para la familia
+   * @param codigoFamilia Codigo de la familia
+   */
+  setValoresFamilia(codigoFamilia: string): void {
+    this.setInformacionFamily(this.familyForm.value.formDad.value, this.family.dad, 'Dad');
+    this.setInformacionFamily(this.familyForm.value.formMom.value, this.family.mom, 'Mom');
+    if(this.familyForm.value.formGuardian) {
+      this.familyForm.value.formGuardian.updateValueAndValidity();
+      this.setInformacionFamily(this.familyForm.value.formGuardian.value, this.family.guardian, 'Guardian');
+    }
+    
+    this.family.pagoAutomatico = this.f.pagoAutomatico.value;
+    this.family.addFormGuardian = this.f.addFormGuardian.value;
+    this.family.tipoTarjeta = this.f.tipoTarjeta.value;
+    this.family.planPagoDonaciones = this.f.planPagoDonaciones.value;
+    this.family.cuantoPagaInstruccion = isNaN(+this.f.cuantoPagaInstruccion.value) ? 0 : +this.f.cuantoPagaInstruccion.value;
+    this.family.cuantoPagaDonativo = isNaN(+this.f.cuantoPagaDonativo.value) ? 0 : +this.f.cuantoPagaDonativo.value;
+    this.family.cuantoPagaCuido = isNaN(+this.f.cuantoPagaCuido.value) ? 0 : +this.f.cuantoPagaCuido.value;
+    this.family.codigoFamilia = codigoFamilia;
+
+    // direccion
+    this.family.addressFacturacionLineOne = this.f.addressFacturacionLineOne.value,
+    this.family.addressFacturacionLineTwo = this.f.addressFacturacionLineTwo.value,
+    this.family.addressFacturacionCity = this.f.addressFacturacionCity.value,
+    this.family.addressFacturacionCountry = this.f.addressFacturacionCountry.value,
+    this.family.facturacionZipCode = this.f.facturacionZipCode.value,
+    this.family.addressCircularLineOne = this.f.addressCircularLineOne.value,
+    this.family.addressCircularLineTwo = this.f.addressCircularLineTwo.value,
+    this.family.addressCircularCity = this.f.addressCircularCity.value,
+    this.family.addressCircularCountry = this.f.addressCircularCountry.value,
+    this.family.circularZipCode = this.f.circularZipCode.value,
+
+    // Actualiza la cuenta
+    this.cuentaFamilyComponent.actualizarCuenta(this.family.planPagoDonaciones, true);
+    this.family.estadoCuenta = this.cuentaFamilyComponent.family.estadoCuenta;
   }
   
   validarCodigoFamilia(codigoFamilia: any): Observable<boolean> {
